@@ -1,21 +1,30 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, MeshWobbleMaterial, Points, PointMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Generate 400 random particle positions for background ambient field
 const particleCount = 300;
-const particlePositions = new Float32Array(particleCount * 3);
-for (let i = 0; i < particleCount * 3; i++) {
-  particlePositions[i] = (Math.random() - 0.5) * 12;
+
+// Deterministic pseudo-random float generator to eliminate SSR vs Client hydration mismatches
+function pseudoRandom(seed: number) {
+  const x = Math.sin(seed * 9999 + 1) * 10000;
+  return x - Math.floor(x);
 }
 
 export function FloatingMesh() {
   const meshRef = useRef<THREE.Mesh>(null!);
   const innerMeshRef = useRef<THREE.Mesh>(null!);
   const particlesRef = useRef<THREE.Points>(null!);
+
+  const particlePositions = useMemo(() => {
+    const pos = new Float32Array(particleCount * 3);
+    for (let i = 0; i < particleCount * 3; i++) {
+      pos[i] = (pseudoRandom(i) - 0.5) * 12;
+    }
+    return pos;
+  }, []);
 
   useFrame((state, delta) => {
     if (meshRef.current) {
