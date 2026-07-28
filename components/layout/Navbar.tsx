@@ -92,7 +92,7 @@ export function Navbar() {
                 {portfolioData.personal.name}
               </span>
               <span className="text-[10px] font-mono text-cyan-400/90 flex items-center gap-1">
-                <Terminal className="w-3 h-3 inline text-cyan-400" /> CSE 2nd Year
+                <Terminal className="w-3 h-3 inline text-cyan-400" /> CSE 1st Year (2025-29)
               </span>
             </div>
           </a>

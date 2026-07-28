@@ -1,6 +1,6 @@
 'use client';
 
-import { Sparkles, Code2, Compass, Heart, GraduationCap, Users } from 'lucide-react';
+import { Sparkles, Code2, Compass, GraduationCap, Users } from 'lucide-react';
 import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
 import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -62,7 +62,7 @@ export function BentoSection() {
                   Academic Journey
                 </h4>
                 <p className="text-xs text-gray-300 leading-relaxed">
-                  2nd Year B.E. Computer Science Engineering student at Rural Engineering College, Hulkoti.
+                  1st Year B.E. Computer Science Engineering student (2025–2029 Batch) at Rural Engineering College, Hulkoti.
                 </p>
               </div>
               <span className="text-[11px] font-mono text-violet-400 font-semibold block">

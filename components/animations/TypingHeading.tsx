@@ -20,7 +20,7 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const greetingText = "Hi, I’m ";
-    const nameText = "Vrushabh B";
+    const nameText = " Vrushabh B";
 
     if (reduceMotion) {
       if (greetingRef.current) greetingRef.current.textContent = greetingText;
@@ -62,7 +62,7 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
         },
       });
 
-      // 2. Type "Vrushabh B" with gradient styling
+      // 2. Type "Vrushabh B" with electric animated gradient styling
       tl.to(nameState, {
         length: nameText.length,
         duration: 1.8,
@@ -86,11 +86,11 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
       aria-label="Hi, I’m Vrushabh B"
       className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight"
     >
-      <span ref={greetingRef} aria-hidden="true" className="inline-block" />
+      <span ref={greetingRef} aria-hidden="true" className="inline whitespace-pre" />
       <span
         ref={nameRef}
         aria-hidden="true"
-        className="hero-name-gradient inline-block font-extrabold"
+        className="hero-name-gradient inline font-extrabold"
       />
       <span
         ref={cursorRef}

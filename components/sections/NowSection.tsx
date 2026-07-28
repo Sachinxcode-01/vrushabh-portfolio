@@ -19,8 +19,8 @@ export function NowSection() {
     },
     {
       icon: <BookOpen className="w-5 h-5 text-blue-400" />,
-      title: '2nd Year CSE Coursework',
-      desc: 'Mastering Data Structures, DBMS, Object-Oriented Programming, and Computer Architecture at REC Hulkoti.',
+      title: '1st Year CSE Coursework',
+      desc: 'Mastering C/C++ Programming, Applied Mathematics, Logic Design, and Computer Fundamentals at REC Hulkoti.',
     },
     {
       icon: <Rocket className="w-5 h-5 text-emerald-400" />,
@@ -40,7 +40,7 @@ export function NowSection() {
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-emerald-500/30 text-xs font-mono text-emerald-300 shadow-lg shadow-emerald-500/10">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
             <Activity className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Active Status • Updated 2026</span>
+            <span>Active Status • 2025–2029 Batch</span>
           </div>
         </div>
 

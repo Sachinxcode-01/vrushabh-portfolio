@@ -85,20 +85,21 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.name-gradient {
+.name-gradient,
+.hero-name-gradient {
   background: linear-gradient(
     90deg,
-    #22d3ee,
-    #6366f1,
-    #a855f7,
-    #22d3ee
+    #38bdf8,
+    #818cf8,
+    #c084fc,
+    #38bdf8
   );
   background-size: 300% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   animation: name-gradient 5s linear infinite;
-  text-shadow: 0 0 30px rgba(34, 211, 238, 0.25);
+  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.35));
 }
 
 @keyframes name-gradient {

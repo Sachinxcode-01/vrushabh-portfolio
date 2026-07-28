@@ -5,9 +5,9 @@ export const portfolioData: PortfolioData = {
     name: "Vrushabh B",
     role: "Computer Science Engineering Student",
     college: "Rural Engineering College, Hulkoti – 588205",
-    academicYear: "2nd Year B.E. (CSE)",
+    academicYear: "1st Year B.E. (CSE) • 2025–2029 Batch",
     location: "Hulkoti, Karnataka, India",
-    bio: "Passionate Computer Science Engineering student focused on full-stack web development, modern software engineering, and interactive digital experiences. Enthusiastic about solving complex algorithmic problems, building scalable backend services, and designing clean user interfaces.",
+    bio: "Passionate Computer Science Engineering student (2025–2029 Batch) focused on full-stack web development, modern software engineering, and interactive digital experiences. Enthusiastic about solving complex algorithmic problems, building scalable backend services, and designing clean user interfaces.",
     interests: [
       "Full-Stack Web Architecture",
       "Interactive 3D Web Graphics",
@@ -61,10 +61,10 @@ export const portfolioData: PortfolioData = {
     },
     {
       id: "stat-4",
-      label: "Academic Milestone",
-      value: 2,
-      suffix: "nd Year",
-      description: "B.E. Computer Science Engineering"
+      label: "Academic Status",
+      value: 1,
+      suffix: "st Year",
+      description: "B.E. CSE (2025–2029 Batch)"
     }
   ],
   skillCategories: [
@@ -162,19 +162,19 @@ export const portfolioData: PortfolioData = {
       id: "edu-1",
       institution: "Rural Engineering College, Hulkoti",
       degree: "Bachelor of Engineering (B.E.) in Computer Science & Engineering",
-      period: "2023 – Present (Expected 2027)",
-      status: "Currently in 2nd Year (Semester IV)",
+      period: "2025 – 2029 Batch",
+      status: "Currently in 1st Year B.E. (CSE)",
       coursework: [
-        "Data Structures & Algorithms",
-        "Object-Oriented Programming (C++ / Java)",
-        "Database Management Systems",
-        "Computer Organization & Architecture",
-        "Discrete Mathematical Structures",
-        "Web Programming Fundamentals"
+        "Programming in C / C++",
+        "Mathematics for Computing",
+        "Basic Electronics & Computer Systems",
+        "Web Programming Fundamentals",
+        "Data Structures Concepts",
+        "Problem Solving Techniques"
       ],
       achievements: [
-        "Active participant in Department Technical Workshops & Coding Competitions",
-        "Building academic & student project portfolios"
+        "1st Year CSE Batch (2025-2029) at REC Hulkoti",
+        "Active participant in Department Technical Workshops & Coding Competitions"
       ],
       location: "Hulkoti – 588205, Gadag District, Karnataka"
     },
@@ -182,7 +182,7 @@ export const portfolioData: PortfolioData = {
       id: "edu-2",
       institution: "Pre-University College (PUC)",
       degree: "Pre-University Education (Science Stream - PCMB / PCMC)",
-      period: "2021 – 2023",
+      period: "2023 – 2025",
       status: "Completed with Distinction",
       coursework: [
         "Physics",
@@ -202,7 +202,7 @@ export const portfolioData: PortfolioData = {
       title: "Full-Stack Web Development Certification",
       type: "Certification",
       issuer: "Online Learning Platform",
-      date: "2024",
+      date: "2025",
       description: "Completed comprehensive training on modern frontend libraries, responsive design, REST API architecture, and state management.",
       tags: ["React", "Node.js", "Web Dev"],
       credentialUrl: "https://example.com/certificate/webdev-placeholder",
@@ -213,7 +213,7 @@ export const portfolioData: PortfolioData = {
       title: "Inter-College Coding Hackathon - Participant",
       type: "Hackathon",
       issuer: "Regional Engineering Fest",
-      date: "2024",
+      date: "2025",
       description: "Collaborated in a 24-hour sprint to prototype a web app solution for real-world campus problem statements.",
       tags: ["Hackathon", "Problem Solving", "Teamwork"],
       isPlaceholder: false
@@ -223,7 +223,7 @@ export const portfolioData: PortfolioData = {
       title: "Technical Workshop on Modern JavaScript & Frameworks",
       type: "Workshop",
       issuer: "REC Hulkoti CSE Association",
-      date: "2024",
+      date: "2025",
       description: "Participated in hands-on technical sessions covering ES6+, DOM manipulation, component architecture, and Git workflows.",
       tags: ["JavaScript", "Git", "Workshop"],
       isPlaceholder: false
@@ -233,7 +233,7 @@ export const portfolioData: PortfolioData = {
       title: "Data Structures & Algorithms Mastery Badge",
       type: "Certification",
       issuer: "Competitive Programming Platform",
-      date: "2024",
+      date: "2025",
       description: "Solved 200+ algorithm challenges across arrays, strings, trees, graphs, and dynamic programming.",
       tags: ["C++", "DSA", "Problem Solving"],
       credentialUrl: "https://example.com/certificate/dsa-placeholder",
