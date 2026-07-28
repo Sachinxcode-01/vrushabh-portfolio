@@ -2,9 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { LoaderBackground } from './LoaderBackground';
 import { LoaderLogo } from './LoaderLogo';
 import { LoaderProgress } from './LoaderProgress';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 interface PortfolioLoaderProps {
   onComplete?: () => void;
@@ -20,29 +25,20 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
   const percentageRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
-  const [mounted, setMounted] = useState(false);
   const [active, setActive] = useState(true);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
-    // Scroll lock while loader is active
+    // Lock scroll immediately on mount
     document.body.style.overflow = 'hidden';
 
-    // Reduced Motion check
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Session storage check (optional: play once per session)
     const hasLoaded = sessionStorage.getItem('vb_portfolio_loaded');
 
     if (reduceMotion || hasLoaded === 'true') {
       document.body.style.overflow = '';
       setActive(false);
       if (onComplete) onComplete();
+      ScrollTrigger.refresh();
       return;
     }
 
@@ -55,10 +51,13 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
           document.body.style.overflow = '';
           setActive(false);
           if (onComplete) onComplete();
+          setTimeout(() => {
+            ScrollTrigger.refresh();
+          }, 100);
         },
       });
 
-      // Step 1: Content Entrance
+      // Step 1: Content Fade In
       tl.fromTo(
         logoRef.current,
         { scale: 0.85, opacity: 0, filter: 'blur(10px)' },
@@ -70,10 +69,10 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
         '-=0.2'
       );
 
-      // Step 2: Live Progress Animation (0% to 100%)
+      // Step 2: Progress Counter (0% to 100%)
       tl.to(progressObj, {
         value: 100,
-        duration: 1.3,
+        duration: 1.2,
         ease: 'power2.inOut',
         onUpdate: () => {
           const val = Math.round(progressObj.value);
@@ -86,37 +85,25 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
         },
       });
 
-      // Step 3: Premium Split Exit Transition
+      // Step 3: Smooth Split Exit Curtain
       tl.to(logoRef.current, {
-        scale: 1.08,
+        scale: 1.05,
         opacity: 0,
-        duration: 0.4,
+        duration: 0.35,
         ease: 'power3.inOut',
       })
-        .to(
-          contentRef.current,
-          { opacity: 0, duration: 0.3 },
-          '-=0.3'
-        )
-        .to(
-          topPanelRef.current,
-          { y: '-100%', duration: 0.6, ease: 'expo.inOut' },
-          '-=0.2'
-        )
-        .to(
-          bottomPanelRef.current,
-          { y: '100%', duration: 0.6, ease: 'expo.inOut' },
-          '-=0.6'
-        );
+        .to(contentRef.current, { opacity: 0, duration: 0.25 }, '-=0.25')
+        .to(topPanelRef.current, { y: '-100%', duration: 0.6, ease: 'expo.inOut' }, '-=0.15')
+        .to(bottomPanelRef.current, { y: '100%', duration: 0.6, ease: 'expo.inOut' }, '-=0.6');
     });
 
     return () => {
       document.body.style.overflow = '';
       ctx.revert();
     };
-  }, [mounted, onComplete]);
+  }, [onComplete]);
 
-  if (!mounted || !active) return null;
+  if (!active) return null;
 
   return (
     <div
@@ -124,7 +111,7 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
       role="status"
       aria-live="polite"
       aria-label="Loading Vrushabh B Portfolio"
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center pointer-events-auto select-none"
+      className="fixed inset-0 z-[99999] flex flex-col items-center justify-center pointer-events-auto select-none bg-[#05070f]"
     >
       {/* Top Split Panel */}
       <div

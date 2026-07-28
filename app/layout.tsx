@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
-import { PortfolioLoader } from '@/components/loading/PortfolioLoader';
+import { ClientLoaderWrapper } from '@/components/loading/ClientLoaderWrapper';
 import { GlobalBackground } from '@/components/background/GlobalBackground';
 import { ScrollProgress } from '@/components/navigation/ScrollProgress';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
@@ -83,11 +83,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white relative">
+      <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
         <ScrollProgress />
-        <PortfolioLoader />
         <GlobalBackground />
-        <SmoothScroll>{children}</SmoothScroll>
+        <ClientLoaderWrapper>
+          <SmoothScroll>{children}</SmoothScroll>
+        </ClientLoaderWrapper>
         <ScrollToTop />
       </body>
     </html>
