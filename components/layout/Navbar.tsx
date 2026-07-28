@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Menu, X, FileText, Terminal } from 'lucide-react';
+import { Menu, X, Send, Terminal, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
+import { MagneticButton } from '@/components/animations/MagneticButton';
 
 const navItems = [
   { name: 'Home', href: '#hero' },
@@ -26,7 +27,6 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      // Section intersection detection
       const sections = navItems.map(item => item.href.substring(1));
       const scrollPosition = window.scrollY + 200;
 
@@ -58,26 +58,29 @@ export function Navbar() {
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'py-3 bg-[#05070f]/80 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-cyan-950/20'
-          : 'py-5 bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo / Monogram Image */}
+    <header className="fixed top-0 left-0 right-0 z-50 py-4 px-4 sm:px-6 lg:px-8 transition-all duration-500">
+      <div className="max-w-7xl mx-auto">
+        <nav
+          className={`relative flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-2xl transition-all duration-500 ${
+            scrolled
+              ? 'bg-[#05070f]/80 backdrop-blur-2xl border border-cyan-500/20 shadow-2xl shadow-cyan-950/30'
+              : 'bg-[#05070f]/40 backdrop-blur-md border border-white/10'
+          }`}
+        >
+          {/* Soft Glow Effect Behind Navbar */}
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-violet-600/10 to-blue-500/10 blur-xl opacity-50 pointer-events-none" />
+
+          {/* Left: Brand Monogram & Details */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
-            className="flex items-center gap-3 group"
+            className="flex items-center gap-3 group relative z-10"
           >
-            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-violet-600 to-blue-500 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-violet-500/40 transition-all duration-300">
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-violet-600 to-blue-500 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
               <div className="relative w-full h-full bg-[#05070f] rounded-[11px] overflow-hidden flex items-center justify-center p-1">
                 <Image
                   src="/VB.png"
-                  alt="VB Monogram Logo"
+                  alt="VB Logo"
                   fill
                   sizes="40px"
                   className="object-contain p-1"
@@ -85,17 +88,17 @@ export function Navbar() {
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="font-bold tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+              <span className="font-bold tracking-tight text-white group-hover:text-cyan-300 transition-colors text-sm sm:text-base">
                 {portfolioData.personal.name}
               </span>
-              <span className="text-[10px] font-mono text-cyan-400/80 flex items-center gap-1">
-                <Terminal className="w-3 h-3 inline" /> CSE 2nd Year
+              <span className="text-[10px] font-mono text-cyan-400/90 flex items-center gap-1">
+                <Terminal className="w-3 h-3 inline text-cyan-400" /> CSE 2nd Year
               </span>
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 glass-panel px-4 py-1.5 rounded-full border border-white/10">
+          {/* Center: Desktop Navigation Links */}
+          <div className="hidden lg:flex items-center gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 relative z-10">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.substring(1);
               return (
@@ -103,7 +106,7 @@ export function Navbar() {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className={`relative px-3 py-1.5 text-xs font-medium transition-all duration-300 rounded-full ${
+                  className={`relative px-3.5 py-1.5 text-xs font-medium transition-all duration-300 rounded-full ${
                     isActive
                       ? 'text-white font-semibold'
                       : 'text-gray-400 hover:text-gray-200'
@@ -111,8 +114,8 @@ export function Navbar() {
                 >
                   {isActive && (
                     <motion.div
-                      layoutId="activeTab"
-                      className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-violet-500/20 border border-cyan-500/40 rounded-full"
+                      layoutId="activePill"
+                      className="absolute inset-0 bg-gradient-to-r from-cyan-500/25 via-violet-600/25 to-blue-500/25 border border-cyan-500/40 rounded-full"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -120,42 +123,45 @@ export function Navbar() {
                 </a>
               );
             })}
-          </nav>
-
-          {/* Action Buttons */}
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href={portfolioData.personal.resumeUrl}
-              className="glass-button text-xs font-semibold px-4 py-2 rounded-xl text-cyan-300 border border-cyan-500/30 flex items-center gap-2 hover:bg-cyan-500/10 transition-all shadow-sm shadow-cyan-500/10"
-            >
-              <FileText className="w-4 h-4 text-cyan-400" />
-              <span>Resume</span>
-            </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center">
+          {/* Right: "Let’s Talk" Animated CTA Button */}
+          <div className="hidden lg:flex items-center gap-3 relative z-10">
+            <MagneticButton>
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, '#contact')}
+                className="relative px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-violet-600 to-blue-500 text-white text-xs font-bold tracking-wide shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 flex items-center gap-2 group"
+              >
+                <span>Let’s Talk</span>
+                <Send className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </MagneticButton>
+          </div>
+
+          {/* Mobile Navigation Toggle */}
+          <div className="lg:hidden flex items-center relative z-10">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white"
-              aria-label="Toggle Navigation Menu"
+              className="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white transition-colors"
+              aria-label="Toggle Mobile Menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
-        </div>
+        </nav>
       </div>
 
       {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#05070f]/95 backdrop-blur-2xl border-b border-white/10 px-4 pt-3 pb-6 mt-3"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="lg:hidden max-w-7xl mx-auto mt-2 px-2"
           >
-            <div className="flex flex-col gap-2">
+            <div className="bg-[#05070f]/95 backdrop-blur-2xl border border-cyan-500/30 rounded-2xl p-4 shadow-2xl space-y-2">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.substring(1);
                 return (
@@ -163,7 +169,7 @@ export function Navbar() {
                     key={item.name}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                       isActive
                         ? 'bg-gradient-to-r from-cyan-500/20 to-violet-500/20 text-cyan-300 border border-cyan-500/30'
                         : 'text-gray-300 hover:bg-white/5'
@@ -174,13 +180,14 @@ export function Navbar() {
                 );
               })}
 
-              <div className="pt-3 mt-2 border-t border-white/10 flex flex-col gap-2">
+              <div className="pt-3 border-t border-white/10">
                 <a
-                  href={portfolioData.personal.resumeUrl}
-                  className="w-full text-center glass-button text-sm font-semibold px-4 py-3 rounded-xl text-cyan-300 border border-cyan-500/30 flex items-center justify-center gap-2"
+                  href="#contact"
+                  onClick={(e) => handleNavClick(e, '#contact')}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-violet-600 to-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20"
                 >
-                  <FileText className="w-4 h-4" />
-                  <span>Download Resume</span>
+                  <Sparkles className="w-4 h-4" />
+                  <span>Let’s Talk</span>
                 </a>
               </div>
             </div>
