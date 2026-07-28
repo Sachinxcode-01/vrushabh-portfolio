@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ArrowUp, Mail, Code2 } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/components/ui/Icons';
@@ -21,9 +22,15 @@ export function Footer() {
           {/* Brand Info */}
           <div className="md:col-span-2 flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-violet-600 p-[1px]">
-                <div className="w-full h-full bg-[#05070f] rounded-[11px] flex items-center justify-center font-mono font-bold text-cyan-400">
-                  VB
+              <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-violet-600 p-[1px]">
+                <div className="relative w-full h-full bg-[#05070f] rounded-[11px] overflow-hidden flex items-center justify-center p-1">
+                  <Image
+                    src="/VB.png"
+                    alt="VB Monogram Logo"
+                    fill
+                    sizes="40px"
+                    className="object-contain p-1"
+                  />
                 </div>
               </div>
               <span className="text-xl font-bold text-white tracking-tight">

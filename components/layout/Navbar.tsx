@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, FileText, Sparkles, Terminal } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X, FileText, Terminal } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
 
@@ -66,17 +67,21 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Logo / Monogram */}
+          {/* Logo / Monogram Image */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-3 group"
           >
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-violet-600 to-blue-500 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-violet-500/40 transition-all duration-300">
-              <div className="w-full h-full bg-[#05070f] rounded-[11px] flex items-center justify-center">
-                <span className="font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400 text-lg">
-                  VB
-                </span>
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-violet-600 to-blue-500 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-violet-500/40 transition-all duration-300">
+              <div className="relative w-full h-full bg-[#05070f] rounded-[11px] overflow-hidden flex items-center justify-center p-1">
+                <Image
+                  src="/VB.png"
+                  alt="VB Monogram Logo"
+                  fill
+                  sizes="40px"
+                  className="object-contain p-1"
+                />
               </div>
             </div>
             <div className="flex flex-col">
