@@ -3,7 +3,8 @@
 import { useRef } from 'react';
 import { Calendar, MapPin, BookOpen, CheckCircle } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
-import { MotionCard } from '@/components/animations/MotionCard';
+import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 import { useGSAP } from '@/hooks/useGSAP';
 import { gsap } from 'gsap';
 
@@ -30,15 +31,15 @@ export function EducationSection() {
   }, []);
 
   return (
-    <section id="education" className="relative py-24 bg-[#05070f] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="education" className="relative py-24 bg-transparent overflow-hidden">
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="cyan" position="left" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // Academic Journey
+            // 04. ACADEMIC JOURNEY
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Education & <span className="text-gradient">Timeline</span>
@@ -76,9 +77,9 @@ export function EducationSection() {
                     <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
                   </div>
 
-                  {/* Timeline Card wrapped with MotionCard */}
+                  {/* Timeline Card */}
                   <div className="w-full md:w-[calc(50%-2rem)] pl-10 md:pl-0">
-                    <MotionCard delay={index * 0.2}>
+                    <PremiumMotionCard delay={index * 0.2}>
                       <div className="p-6 sm:p-8 space-y-4">
                         <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
                           <Calendar className="w-3.5 h-3.5" />
@@ -125,7 +126,7 @@ export function EducationSection() {
                           ))}
                         </div>
                       </div>
-                    </MotionCard>
+                    </PremiumMotionCard>
                   </div>
                 </div>
               );

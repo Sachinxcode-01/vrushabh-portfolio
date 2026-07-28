@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Code, Layout, Database, Wrench, Sparkles, CheckCircle, Clock } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
-import { MotionCard } from '@/components/animations/MotionCard';
+import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "Programming Languages": <Code className="w-5 h-5 text-cyan-400" />,
@@ -29,15 +30,15 @@ export function SkillsSection() {
     : portfolioData.skillCategories.filter(c => c.category === selectedCategory);
 
   return (
-    <section id="skills" className="relative py-24 bg-[#05070f] overflow-hidden">
-      {/* Ambient Glow */}
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="skills" className="relative py-24 bg-transparent overflow-hidden">
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="blue" position="right" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // Technical Stack
+            // 02. TECHNICAL STACK
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Skills & <span className="text-gradient">Technologies</span>
@@ -65,10 +66,10 @@ export function SkillsSection() {
           ))}
         </div>
 
-        {/* Skill Groups Grid wrapped with MotionCard */}
+        {/* Skill Groups Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredCategories.map((group, idx) => (
-            <MotionCard key={group.category} delay={idx * 0.1} className="h-full">
+            <PremiumMotionCard key={group.category} delay={idx * 0.1} className="h-full">
               <div className="p-6 sm:p-8 h-full flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -89,7 +90,7 @@ export function SkillsSection() {
                     {group.description}
                   </p>
 
-                  {/* Skills Pills */}
+                  {/* Skills Grid */}
                   <div className="flex flex-wrap gap-2">
                     {group.skills.map((skill) => (
                       <motion.div
@@ -127,7 +128,7 @@ export function SkillsSection() {
                   </span>
                 </div>
               </div>
-            </MotionCard>
+            </PremiumMotionCard>
           ))}
         </div>
       </div>

@@ -85,16 +85,29 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.text-gradient-cyan {
-  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+.name-gradient {
+  background: linear-gradient(
+    90deg,
+    #22d3ee,
+    #6366f1,
+    #a855f7,
+    #22d3ee
+  );
+  background-size: 300% 100%;
+  background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: name-gradient 5s linear infinite;
+  text-shadow: 0 0 30px rgba(34, 211, 238, 0.25);
 }
 
-.text-gradient-violet {
-  background: linear-gradient(135deg, #c084fc 0%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@keyframes name-gradient {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 300% 50%;
+  }
 }
 
 /* Noise overlay */

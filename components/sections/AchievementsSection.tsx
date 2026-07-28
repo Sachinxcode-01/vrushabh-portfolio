@@ -2,19 +2,20 @@
 
 import { ExternalLink, Sparkles, Calendar, AlertCircle } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
-import { MotionCard } from '@/components/animations/MotionCard';
+import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 
 export function AchievementsSection() {
   return (
-    <section id="achievements" className="relative py-24 bg-[#05070f] overflow-hidden">
-      {/* Ambient Glow */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="achievements" className="relative py-24 bg-transparent overflow-hidden">
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="indigo" position="right" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // Recognition & Growth
+            // 05. RECOGNITION & GROWTH
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Certifications & <span className="text-gradient">Achievements</span>
@@ -28,7 +29,7 @@ export function AchievementsSection() {
         {/* Achievements Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {portfolioData.achievements.map((item, idx) => (
-            <MotionCard key={item.id} delay={idx * 0.15} className="h-full">
+            <PremiumMotionCard key={item.id} delay={idx * 0.15} className="h-full">
               <div className="p-6 sm:p-8 h-full flex flex-col justify-between">
                 <div>
                   {/* Top Badge Info */}
@@ -94,7 +95,7 @@ export function AchievementsSection() {
                   </div>
                 </div>
               </div>
-            </MotionCard>
+            </PremiumMotionCard>
           ))}
         </div>
       </div>

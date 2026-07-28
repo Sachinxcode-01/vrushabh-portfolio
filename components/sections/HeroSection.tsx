@@ -1,21 +1,23 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { ArrowDown, FileText, Mail, Sparkles, MapPin, GraduationCap, Code2, Terminal } from 'lucide-react';
+import { ArrowDown, FileText, Mail, Sparkles, MapPin, GraduationCap, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
 import { TechCanvas } from '@/components/three/TechCanvas';
 import { GithubIcon, LinkedinIcon, InstagramIcon } from '@/components/ui/Icons';
 import { RotatingRoles } from '@/components/animations/RotatingRoles';
+import { TypingHeading } from '@/components/animations/TypingHeading';
 import { MagneticButton } from '@/components/animations/MagneticButton';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
+import { ImageReveal } from '@/components/animations/ImageReveal';
 import { useGSAP } from '@/hooks/useGSAP';
 import { gsap } from 'gsap';
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
   const bioRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -23,18 +25,21 @@ export function HeroSection() {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
+  const [typingComplete, setTypingComplete] = useState(false);
+
+  const handleTypingComplete = useCallback(() => {
+    setTypingComplete(true);
+
     if (!containerRef.current) return;
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.fromTo(badgeRef.current, { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 })
-      .fromTo(headingRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.3')
-      .fromTo(roleRef.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, '-=0.4')
+    tl.fromTo(badgeRef.current, { y: -15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 })
+      .fromTo(roleRef.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, '-=0.2')
       .fromTo(bioRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
       .fromTo(ctaRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
       .fromTo(socialsRef.current, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, '-=0.3')
-      .fromTo(imageContainerRef.current, { scale: 0.9, opacity: 0, clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 0)' }, { scale: 1, opacity: 1, clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: 1, ease: 'expo.out' }, '-=0.8')
+      .fromTo(imageContainerRef.current, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: 'expo.out' }, '-=0.8')
       .fromTo(scrollIndicatorRef.current, { opacity: 0 }, { opacity: 1, duration: 0.4 }, '-=0.2');
   }, []);
 
@@ -42,15 +47,18 @@ export function HeroSection() {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[#05070f]"
+      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-transparent"
     >
-      {/* Interactive 3D Canvas Background */}
+      {/* 3D Tech Canvas */}
       <TechCanvas />
+
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="cyan" position="right" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Text & Hero Content */}
+          {/* Left Column: Typing Heading & Text Content */}
           <div className="lg:col-span-7 text-center lg:text-left space-y-6">
             
             {/* Status Pill Badge */}
@@ -60,23 +68,15 @@ export function HeroSection() {
               <span>{portfolioData.personal.academicYear} • {portfolioData.personal.college}</span>
             </div>
 
-            {/* Main Animated Heading */}
-            <h1
-              ref={headingRef}
-              className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight"
-            >
-              Hi, I’m{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-violet-400 to-blue-500 inline-block animate-pulse">
-                {portfolioData.personal.name}
-              </span>
-            </h1>
+            {/* Premium Hero Typing Heading */}
+            <TypingHeading onComplete={handleTypingComplete} />
 
-            {/* Rotating Roles Text Effect */}
+            {/* Rotating Roles Text Switcher */}
             <div ref={roleRef} className="my-2">
               <RotatingRoles />
             </div>
 
-            {/* Biography Summary */}
+            {/* Biography */}
             <p
               ref={bioRef}
               className="text-base sm:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
@@ -84,7 +84,7 @@ export function HeroSection() {
               {portfolioData.personal.bio}
             </p>
 
-            {/* CTA Action Buttons with Magnetic Effect */}
+            {/* CTA Buttons */}
             <div
               ref={ctaRef}
               className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2"
@@ -119,7 +119,7 @@ export function HeroSection() {
               </MagneticButton>
             </div>
 
-            {/* Social Links & Location Info */}
+            {/* Social Links & Location */}
             <div
               ref={socialsRef}
               className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-sm text-gray-400"
@@ -177,39 +177,37 @@ export function HeroSection() {
 
           </div>
 
-          {/* Right Column: Vrushabh's Profile Portrait Composition */}
+          {/* Right Column: Hero Profile Portrait Composition */}
           <div className="lg:col-span-5 flex justify-center relative">
             <div
               ref={imageContainerRef}
-              className="relative w-full max-w-[380px] sm:max-w-[420px] aspect-[4/5] group"
+              className="relative w-full max-w-[380px] sm:max-w-[430px] aspect-[4/5] group"
             >
-              {/* Background Glow Lighting */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/30 via-violet-600/30 to-blue-500/30 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Soft Cyan & Violet Lighting Behind Portrait */}
+              <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/30 via-violet-600/30 to-blue-500/30 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              {/* Orbit Animated Rings */}
+              {/* Orbiting Tech Rings */}
               <div className="absolute -inset-6 rounded-[2.5rem] border border-cyan-500/20 border-dashed animate-[spin_25s_linear_infinite] pointer-events-none" />
               <div className="absolute -inset-10 rounded-[3rem] border border-violet-500/15 border-dashed animate-[spin_35s_linear_infinite_reverse] pointer-events-none" />
 
-              {/* Main Portrait Glass Frame Container */}
-              <div className="relative w-full h-full rounded-3xl p-1.5 bg-gradient-to-b from-cyan-400/40 via-violet-500/30 to-blue-500/40 shadow-2xl overflow-hidden glass-panel">
-                
-                {/* Next.js Image Component using /Vrushabh.jpeg */}
+              {/* Main Image Glass Frame Container */}
+              <ImageReveal className="w-full h-full rounded-3xl p-1.5 bg-gradient-to-b from-cyan-400/40 via-violet-500/30 to-blue-500/40 shadow-2xl glass-panel">
                 <div className="relative w-full h-full rounded-[22px] overflow-hidden bg-slate-900">
                   <Image
                     src="/Vrushabh.jpeg"
-                    alt="Vrushabh B - Computer Science Engineering Student"
+                    alt="Vrushabh B"
                     fill
                     priority
-                    sizes="(max-width: 768px) 85vw, 420px"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 90vw, 430px"
+                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Subtle Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070f]/90 via-transparent to-transparent opacity-60 pointer-events-none" />
+                  {/* Subtle Ambient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070f]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
                 </div>
 
-                {/* Shine Sweep Animation overlay */}
+                {/* Animated Light Sweep */}
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
-              </div>
+              </ImageReveal>
 
               {/* Floating Glass Info Cards Around Image */}
               <motion.div
@@ -222,7 +220,7 @@ export function HeroSection() {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-cyan-400 block font-bold">Academic Status</span>
-                  <span className="text-xs font-semibold text-white">2nd Year B.E. CSE</span>
+                  <span className="text-xs font-semibold text-white">2nd Year • REC Hulkoti</span>
                 </div>
               </motion.div>
 
@@ -232,23 +230,13 @@ export function HeroSection() {
                 className="absolute -bottom-4 -right-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-violet-500/40 flex items-center gap-2.5 shadow-xl shadow-violet-500/10"
               >
                 <div className="p-1.5 rounded-lg bg-violet-500/20 text-violet-300">
-                  <Sparkles className="w-4 h-4" />
+                  <CheckCircle className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-violet-400 block font-bold">Focus Area</span>
-                  <span className="text-xs font-semibold text-white">Full-Stack & 3D Web</span>
+                  <span className="text-[10px] font-mono text-violet-400 block font-bold">Status</span>
+                  <span className="text-xs font-semibold text-white">Available for Projects</span>
                 </div>
               </motion.div>
-
-              {/* Floating Technology Badges */}
-              <div className="absolute top-1/2 -left-8 -translate-y-1/2 hidden sm:flex flex-col gap-2 z-20">
-                <span className="px-2.5 py-1 rounded-lg bg-[#05070f]/90 border border-cyan-500/40 text-[10px] font-mono text-cyan-300 shadow-md">
-                  C++ / DSA
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-[#05070f]/90 border border-violet-500/40 text-[10px] font-mono text-violet-300 shadow-md">
-                  Next.js 15
-                </span>
-              </div>
 
             </div>
           </div>

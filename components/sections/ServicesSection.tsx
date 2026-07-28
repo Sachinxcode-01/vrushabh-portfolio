@@ -2,7 +2,8 @@
 
 import { Code2, Layout, Cpu, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
-import { MotionCard } from '@/components/animations/MotionCard';
+import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 
 const iconMap: Record<string, React.ReactNode> = {
   Code2: <Code2 className="w-7 h-7 text-cyan-400" />,
@@ -13,15 +14,15 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function ServicesSection() {
   return (
-    <section id="services" className="relative py-24 bg-[#05070f] overflow-hidden">
-      {/* Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+    <section id="services" className="relative py-24 bg-transparent overflow-hidden">
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="blue" position="left" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // Core Focus
+            // 06. CORE FOCUS & SERVICES
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Services & <span className="text-gradient">Interests</span>
@@ -35,7 +36,7 @@ export function ServicesSection() {
         {/* Services Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {portfolioData.services.map((service, idx) => (
-            <MotionCard key={service.id} delay={idx * 0.15} className="h-full">
+            <PremiumMotionCard key={service.id} delay={idx * 0.15} className="h-full">
               <div className="p-6 sm:p-8 h-full flex flex-col justify-between">
                 <div>
                   {/* Icon Header */}
@@ -67,7 +68,7 @@ export function ServicesSection() {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
-            </MotionCard>
+            </PremiumMotionCard>
           ))}
         </div>
       </div>

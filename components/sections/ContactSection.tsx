@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Mail, MapPin, GraduationCap, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
 import { GithubIcon, LinkedinIcon } from '@/components/ui/Icons';
-import { MotionCard } from '@/components/animations/MotionCard';
+import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
 import { MagneticButton } from '@/components/animations/MagneticButton';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -29,7 +30,6 @@ export function ContactSection() {
     setStatus('loading');
     setErrorMessage('');
 
-    // Basic Client-side check
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
       setErrorMessage('Please fill out all required fields.');
@@ -60,15 +60,15 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-[#05070f] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <section id="contact" className="relative py-24 bg-transparent overflow-hidden">
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="cyan" position="right" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // Get In Touch
+            // 07. GET IN TOUCH
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Contact <span className="text-gradient">Vrushabh B</span>
@@ -80,9 +80,9 @@ export function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Contact Details & Social Links */}
+          {/* Contact Details */}
           <div className="lg:col-span-5 space-y-6">
-            <MotionCard>
+            <PremiumMotionCard>
               <div className="p-6 sm:p-8 space-y-6">
                 <h4 className="text-xl font-bold text-white tracking-tight">
                   Direct Contact Information
@@ -152,18 +152,17 @@ export function ContactSection() {
                   </MagneticButton>
                 </div>
               </div>
-            </MotionCard>
+            </PremiumMotionCard>
           </div>
 
-          {/* Validated Contact Form */}
+          {/* Form */}
           <div className="lg:col-span-7">
-            <MotionCard glowColor="violet">
+            <PremiumMotionCard glowColor="violet">
               <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
                 <h4 className="text-xl font-bold text-white tracking-tight">
                   Send a Direct Message
                 </h4>
 
-                {/* Hidden Honeypot field for spam prevention */}
                 <input
                   type="text"
                   name="honeypot"
@@ -284,7 +283,7 @@ export function ContactSection() {
                   )}
                 </button>
               </form>
-            </MotionCard>
+            </PremiumMotionCard>
           </div>
         </div>
       </div>

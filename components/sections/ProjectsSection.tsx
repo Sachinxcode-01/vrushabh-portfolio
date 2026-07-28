@@ -5,9 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, X, Sparkles, Code2, ArrowUpRight } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
 import { Project } from '@/types/portfolio';
-import { MotionCard } from '@/components/animations/MotionCard';
+import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
 import { GithubIcon } from '@/components/ui/Icons';
 import { MagneticButton } from '@/components/animations/MagneticButton';
+import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 
 export function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -20,15 +21,15 @@ export function ProjectsSection() {
     : portfolioData.projects.filter(p => p.category === activeCategory);
 
   return (
-    <section id="projects" className="relative py-24 bg-[#05070f] overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[140px] pointer-events-none" />
+    <section id="projects" className="relative py-24 bg-transparent overflow-hidden">
+      {/* Section Ambient Glow */}
+      <SectionAmbientLight color="violet" position="left" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // Showcase
+            // 03. SHOWCASE & PROJECTS
           </h2>
           <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Featured <span className="text-gradient">Projects</span>
@@ -56,13 +57,13 @@ export function ProjectsSection() {
           ))}
         </div>
 
-        {/* Projects Cards Grid wrapped with MotionCard */}
+        {/* Projects Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {filteredProjects.map((project, idx) => (
-            <MotionCard key={project.id} delay={idx * 0.15} className="h-full">
+            <PremiumMotionCard key={project.id} delay={idx * 0.15} className="h-full">
               <div className="h-full flex flex-col justify-between group">
                 <div>
-                  {/* Card Banner Preview */}
+                  {/* Card Banner Preview Container with Hover Scale */}
                   <div className="relative h-48 sm:h-56 bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-900 border-b border-white/10 p-6 flex flex-col justify-between overflow-hidden">
                     <div className="absolute inset-0 bg-noise opacity-30 pointer-events-none" />
                     
@@ -76,7 +77,7 @@ export function ProjectsSection() {
                       </span>
                     </div>
 
-                    {/* Abstract Project Graphic Mockup */}
+                    {/* Abstract Mockup Graphic */}
                     <div className="my-auto text-center relative z-10 py-4">
                       <div className="w-14 h-14 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-110 group-hover:border-cyan-400/50 transition-all duration-300 shadow-xl">
                         <Code2 className="w-7 h-7" />
@@ -146,7 +147,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
               </div>
-            </MotionCard>
+            </PremiumMotionCard>
           ))}
         </div>
       </div>

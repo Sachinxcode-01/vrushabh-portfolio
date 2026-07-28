@@ -3,6 +3,7 @@ import './globals.css';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 import { PageLoader } from '@/components/animations/PageLoader';
+import { GlobalBackground } from '@/components/background/GlobalBackground';
 import { portfolioData } from '@/data/portfolio';
 
 export const metadata: Metadata = {
@@ -81,9 +82,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white">
+      <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white relative">
         <PageLoader />
         <CustomCursor />
+        <GlobalBackground />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
