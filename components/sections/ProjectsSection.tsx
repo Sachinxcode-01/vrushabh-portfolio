@@ -12,16 +12,9 @@ import { SectionAmbientLight } from '@/components/background/SectionAmbientLight
 import { useGSAP } from '@/hooks/useGSAP';
 import { gsap } from 'gsap';
 
-const categories = ['All Projects', 'Web', 'Full-Stack', 'AI / ML'] as const;
-
 export function ProjectsSection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All Projects');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
-
-  const filteredProjects = portfolioData.projects.filter(
-    p => selectedCategory === 'All Projects' || p.category === selectedCategory
-  );
 
   useGSAP(() => {
     if (!gridRef.current) return;
@@ -38,7 +31,7 @@ export function ProjectsSection() {
         scale: 1,
         filter: 'blur(0px)',
         duration: 0.7,
-        stagger: 0.12,
+        stagger: 0.15,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: gridRef.current,
@@ -46,7 +39,7 @@ export function ProjectsSection() {
         },
       }
     );
-  }, [selectedCategory]);
+  }, []);
 
   return (
     <section id="projects" className="relative py-24 bg-transparent overflow-hidden">
@@ -55,7 +48,7 @@ export function ProjectsSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
             // 03. SHOWCASE & PROJECTS
           </h2>
@@ -63,34 +56,17 @@ export function ProjectsSection() {
             Featured <span className="text-gradient font-extrabold">Projects</span>
           </h3>
           <p className="text-gray-400 text-sm max-w-xl mx-auto mt-3">
-            Exploration of full-stack web applications, AI dashboards, algorithm visualizers, and academic solutions.
+            Highlighted Computer Science & IoT projects: Smart Attendance System and Smart Street Light System.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-violet-600 mx-auto mt-4 rounded-full" />
         </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`px-5 py-2.5 rounded-full text-xs font-mono font-semibold transition-all duration-300 ${
-                selectedCategory === cat
-                  ? 'bg-gradient-to-r from-cyan-500 to-violet-600 text-white shadow-lg shadow-cyan-500/20'
-                  : 'glass-panel text-gray-300 hover:text-white hover:border-cyan-500/30'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects Grid with Cinematic Cards */}
+        {/* 2-Card Projects Grid with Cinematic Cards */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
         >
-          {filteredProjects.map((project, idx) => (
+          {portfolioData.projects.map((project, idx) => (
             <CinematicImageCard
               key={project.id}
               id={project.id}
@@ -116,7 +92,7 @@ export function ProjectsSection() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveProject(null)}
-              className="fixed inset-0 bg-[#05070f]/80 backdrop-blur-xl"
+              className="fixed inset-0 bg-[#05070f]/85 backdrop-blur-xl"
             />
 
             {/* Modal Container */}
@@ -130,13 +106,13 @@ export function ProjectsSection() {
               {/* Close Button */}
               <button
                 onClick={() => setActiveProject(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-colors"
+                className="absolute top-6 right-6 p-2 rounded-full bg-white/5 border border-white/10 text-gray-400 hover:text-white transition-colors z-20"
               >
                 <X className="w-5 h-5" />
               </button>
 
               {/* Modal Image Header */}
-              <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-white/10 bg-slate-900">
+              <div className="relative w-full h-64 sm:h-80 rounded-2xl overflow-hidden border border-white/10 bg-slate-900">
                 <Image
                   src={activeProject.image}
                   alt={activeProject.title}
@@ -145,7 +121,7 @@ export function ProjectsSection() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#080d1a] via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <span className="px-3 py-1 rounded-full text-[10px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                  <span className="px-3.5 py-1.5 rounded-full text-[11px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold">
                     {activeProject.status}
                   </span>
                 </div>
@@ -208,7 +184,7 @@ export function ProjectsSection() {
                   {activeProject.techStack.map(tech => (
                     <span
                       key={tech}
-                      className="px-3 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono"
+                      className="px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-mono"
                     >
                       {tech}
                     </span>
@@ -225,7 +201,7 @@ export function ProjectsSection() {
                   className="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-semibold text-xs shadow-lg shadow-cyan-500/20 hover:scale-105 transition-all flex items-center gap-2"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span>Live Demo</span>
+                  <span>Explore Project</span>
                 </a>
                 <a
                   href={activeProject.githubUrl}

@@ -43,7 +43,7 @@ export const portfolioData: PortfolioData = {
       label: "Projects Completed",
       value: 12,
       suffix: "+",
-      description: "Full-stack apps, tools & UI components"
+      description: "Full-stack apps, IoT systems & UI tools"
     },
     {
       id: "stat-2",
@@ -118,83 +118,43 @@ export const portfolioData: PortfolioData = {
   projects: [
     {
       id: "proj-1",
-      title: "DevNexus - Developer Knowledge Sharing Platform",
-      tagline: "Collaborative developer forum and code snippet hub",
-      problemStatement: "Students and developers often struggle to organize code snippets, technical summaries, and project resources in a searchable single workspace.",
-      solutionSummary: "Built a full-stack platform featuring syntax-highlighted snippet creation, markdown preview, tag-based discovery, and bookmarking.",
+      title: "Smart Attendance System",
+      tagline: "Automated facial recognition & student attendance tracking portal",
+      problemStatement: "Traditional manual paper attendance registers in engineering colleges are time-consuming, prone to proxy attendance, and difficult to audit digitally.",
+      solutionSummary: "Built a web portal integrating computer vision facial recognition and instant student verification for real-time attendance logging and automated academic reports.",
       category: "Full-Stack",
       status: "Featured Project",
-      techStack: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Framer Motion"],
+      techStack: ["Next.js", "Python (OpenCV)", "React", "MongoDB", "Tailwind CSS"],
       features: [
-        "Live markdown code preview with syntax highlighting",
-        "Tag-based project and snippet search filtering",
-        "Responsive dark mode UI with interactive cards",
-        "Secure User authentication & profile dashboards"
+        "Real-time facial detection and verification camera stream",
+        "Automated attendance percentage calculator and student alert triggers",
+        "Exportable PDF/Excel monthly attendance reports for faculty",
+        "Secure role-based access for Students, Teachers, and Department HOD"
       ],
-      image: "/images/projects/devnexus.jpg",
-      demoUrl: "https://devnexus-demo.vercel.app",
+      image: "/images/projects/smart-attendance.jpg",
+      demoUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       featured: true
     },
     {
       id: "proj-2",
-      title: "AlgoVista - Visualizing Graph & Sorting Algorithms",
-      tagline: "Interactive 3D & 2D algorithm visualizer for CS students",
-      problemStatement: "Abstract data structures and sorting algorithms like QuickSort, Dijkstra, and A* are difficult to visualize purely through static textbook diagrams.",
-      solutionSummary: "Created an interactive web application that animates array sorting steps and graph traversal nodes in real time with playback controls.",
-      category: "Web",
-      status: "Completed",
-      techStack: ["React", "JavaScript", "Tailwind CSS", "Canvas API", "GSAP"],
+      title: "Smart Street Light System",
+      tagline: "IoT-enabled automated street lighting & energy conservation system",
+      problemStatement: "Municipal street lights consume immense electrical energy when operating continuously at 100% brightness during quiet, low-traffic midnight hours.",
+      solutionSummary: "Designed an IoT monitoring dashboard that dynamically dims or brightens streetlights based on real-time ambient light sensors and movement sensors.",
+      category: "Systems / Tools",
+      status: "Featured Project",
+      techStack: ["React", "IoT (NodeMCU)", "C++ (Arduino)", "Express.js", "Tailwind CSS"],
       features: [
-        "Real-time speed and step controls for sorting execution",
-        "Interactive maze generator and pathfinding visualizer",
-        "Detailed time and space complexity explanations",
-        "Responsive canvas layout for mobile and desktop screens"
+        "Dynamic brightness adjustment based on motion and ambient light levels",
+        "Real-time energy consumption telemetry and fault alert notifications",
+        "Web-based central control dashboard with manual override switches",
+        "Reduces municipal street light energy consumption by up to 45%"
       ],
-      image: "/images/projects/algovista.jpg",
-      demoUrl: "https://algovista-demo.vercel.app",
+      image: "/images/projects/smart-street-light.jpg",
+      demoUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       featured: true
-    },
-    {
-      id: "proj-3",
-      title: "REC Hulkoti Campus Portal Companion",
-      tagline: "Student productivity tool & event notifications dashboard",
-      problemStatement: "Engineering students need a central hub to track timetable updates, exam notices, club hackathons, and study material downloads.",
-      solutionSummary: "Designed and prototyped a unified web dashboard for Rural Engineering College Hulkoti students with event calendars and resource links.",
-      category: "Web",
-      status: "In Development",
-      techStack: ["Next.js", "Tailwind CSS", "TypeScript", "Lucide React"],
-      features: [
-        "Centralized notice board with filterable category tags",
-        "Semester syllabus & assignment resource download index",
-        "Student timetable viewer with offline caching",
-        "Clean, high-contrast accessible UI"
-      ],
-      image: "/images/projects/rec-portal.jpg",
-      demoUrl: "https://rec-companion.vercel.app",
-      githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
-      featured: true
-    },
-    {
-      id: "proj-4",
-      title: "NeuralCanvas - AI Image Generator Interface",
-      tagline: "Sleek frontend dashboard for generative AI image prompt testing",
-      problemStatement: "Testing AI prompts requires a responsive, high-performance UI with prompt presets, image history, and variation controls.",
-      solutionSummary: "Developed an aesthetic glassmorphic web dashboard with sample gallery grids, seed parameter controls, and prompt history storage.",
-      category: "AI / ML",
-      status: "Completed",
-      techStack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Unsplash API"],
-      features: [
-        "Prompt preset builder with style & dimension selector",
-        "Image grid layout with lightbox viewer and download option",
-        "Local Storage persistence for saved prompts and history",
-        "Smooth page transitions and micro-animations"
-      ],
-      image: "/images/projects/neuralcanvas.jpg",
-      demoUrl: "https://neuralcanvas-demo.vercel.app",
-      githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
-      featured: false
     }
   ],
   education: [
