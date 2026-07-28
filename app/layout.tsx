@@ -3,6 +3,8 @@ import './globals.css';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { PortfolioLoader } from '@/components/loading/PortfolioLoader';
 import { GlobalBackground } from '@/components/background/GlobalBackground';
+import { ScrollProgress } from '@/components/navigation/ScrollProgress';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { portfolioData } from '@/data/portfolio';
 
 export const metadata: Metadata = {
@@ -82,9 +84,11 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white relative">
+        <ScrollProgress />
         <PortfolioLoader />
         <GlobalBackground />
         <SmoothScroll>{children}</SmoothScroll>
+        <ScrollToTop />
       </body>
     </html>
   );
