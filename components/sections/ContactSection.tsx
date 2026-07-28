@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Mail, MapPin, GraduationCap, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Mail, MapPin, GraduationCap, CheckCircle2, AlertCircle, Loader2, ArrowUpRight } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
-import { GithubIcon, LinkedinIcon } from '@/components/ui/Icons';
+import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/components/ui/Icons';
 import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
 import { MagneticButton } from '@/components/animations/MagneticButton';
 import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
@@ -74,37 +74,104 @@ export function ContactSection() {
             Contact <span className="text-gradient">Vrushabh B</span>
           </h3>
           <p className="text-gray-400 text-sm max-w-xl mx-auto mt-3">
-            Have a project idea, opportunity, technical question, or feedback? Send a message and I’ll respond promptly.
+            Have a project idea, opportunity, technical question, or feedback? Reach out directly via social platforms or send a message.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-violet-600 mx-auto mt-4 rounded-full" />
         </div>
 
+        {/* Real Animated Contact Platform Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          
+          {/* Email Card */}
+          <PremiumMotionCard glowColor="cyan">
+            <div className="p-6 space-y-4 flex flex-col justify-between h-full">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <Mail className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block">Email Contact</span>
+                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                    vrushijain1008@gmail.com
+                  </h4>
+                </div>
+              </div>
+              <a
+                href={`mailto:${portfolioData.personal.socials.email}`}
+                className="w-full py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+              >
+                <span>Send Email</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </PremiumMotionCard>
+
+          {/* Instagram Card */}
+          <PremiumMotionCard glowColor="violet">
+            <div className="p-6 space-y-4 flex flex-col justify-between h-full">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400">
+                  <InstagramIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-violet-400 uppercase tracking-wider block">Instagram Profile</span>
+                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                    @mr_vrushi_arasu_17
+                  </h4>
+                </div>
+              </div>
+              <a
+                href={portfolioData.personal.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Instagram Profile"
+                className="w-full py-2.5 rounded-xl bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/30 text-violet-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+              >
+                <span>View Instagram</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </PremiumMotionCard>
+
+          {/* Facebook Card */}
+          <PremiumMotionCard glowColor="blue">
+            <div className="p-6 space-y-4 flex flex-col justify-between h-full">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                  <FacebookIcon className="w-6 h-6" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider block">Facebook Profile</span>
+                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                    Vrushabh B on Facebook
+                  </h4>
+                </div>
+              </div>
+              <a
+                href={portfolioData.personal.socials.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Facebook Profile"
+                className="w-full py-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
+              >
+                <span>View Facebook</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </PremiumMotionCard>
+
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Contact Details */}
+          {/* Contact Details Side */}
           <div className="lg:col-span-5 space-y-6">
             <PremiumMotionCard>
               <div className="p-6 sm:p-8 space-y-6">
                 <h4 className="text-xl font-bold text-white tracking-tight">
-                  Direct Contact Information
+                  Academic Institution & Location
                 </h4>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  Feel free to reach out directly via email or connect with me on LinkedIn and GitHub.
-                </p>
 
                 <div className="space-y-4 pt-2">
-                  <a
-                    href={`mailto:${portfolioData.personal.socials.email}`}
-                    className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/5 border border-white/10 hover:border-cyan-500/40 text-gray-300 hover:text-white transition-all group"
-                  >
-                    <div className="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 group-hover:scale-110 transition-transform">
-                      <Mail className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono text-cyan-400 block">Email Address</span>
-                      <span className="text-xs sm:text-sm font-medium">{portfolioData.personal.socials.email}</span>
-                    </div>
-                  </a>
-
                   <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-300">
                     <div className="p-2.5 rounded-lg bg-violet-500/10 text-violet-400">
                       <GraduationCap className="w-5 h-5" />
@@ -126,7 +193,7 @@ export function ContactSection() {
                   </div>
                 </div>
 
-                {/* Social Buttons */}
+                {/* Additional Developer Social Links */}
                 <div className="pt-4 border-t border-white/10 flex items-center gap-3">
                   <MagneticButton className="w-full">
                     <a
@@ -155,7 +222,7 @@ export function ContactSection() {
             </PremiumMotionCard>
           </div>
 
-          {/* Form */}
+          {/* Form Side */}
           <div className="lg:col-span-7">
             <PremiumMotionCard glowColor="violet">
               <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">

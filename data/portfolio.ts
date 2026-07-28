@@ -27,13 +27,14 @@ export const portfolioData: PortfolioData = {
       "Collaborative Team Player",
       "Detail-Oriented Architect"
     ],
-    profileImage: "/images/profile-placeholder.jpg",
+    profileImage: "/Vrushabh.jpeg",
     resumeUrl: "#resume-download",
     socials: {
-      github: "https://github.com/vrushabh-b",
-      linkedin: "https://linkedin.com/in/vrushabh-b",
-      instagram: "https://instagram.com/vrushabh_b",
-      email: "vrushabh.b.dev@gmail.com"
+      email: "vrushijain1008@gmail.com",
+      instagram: "https://www.instagram.com/mr_vrushi_arasu_17",
+      facebook: "https://www.facebook.com/share/194jEXFn5L/",
+      github: "https://github.com/Sachinxcode-01",
+      linkedin: "https://linkedin.com/in/vrushabh-b"
     }
   },
   stats: [
@@ -132,7 +133,7 @@ export const portfolioData: PortfolioData = {
       ],
       image: "/images/projects/devnexus.jpg",
       demoUrl: "https://devnexus-demo.vercel.app",
-      githubUrl: "https://github.com/vrushabh-b/devnexus",
+      githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       featured: true
     },
     {
@@ -152,7 +153,7 @@ export const portfolioData: PortfolioData = {
       ],
       image: "/images/projects/algovista.jpg",
       demoUrl: "https://algovista-demo.vercel.app",
-      githubUrl: "https://github.com/vrushabh-b/algovista",
+      githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       featured: true
     },
     {
@@ -172,7 +173,7 @@ export const portfolioData: PortfolioData = {
       ],
       image: "/images/projects/rec-portal.jpg",
       demoUrl: "https://rec-companion.vercel.app",
-      githubUrl: "https://github.com/vrushabh-b/rec-companion",
+      githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       featured: true
     },
     {
@@ -192,7 +193,7 @@ export const portfolioData: PortfolioData = {
       ],
       image: "/images/projects/neuralcanvas.jpg",
       demoUrl: "https://neuralcanvas-demo.vercel.app",
-      githubUrl: "https://github.com/vrushabh-b/neuralcanvas",
+      githubUrl: "https://github.com/Sachinxcode-01/vrushabh-portfolio",
       featured: false
     }
   ],
@@ -294,7 +295,7 @@ export const portfolioData: PortfolioData = {
     {
       id: "srv-2",
       title: "UI / UX Engineering & Interactive Motion",
-      description: "Transforming design mockups into liquid-smooth web experiences with GSAP, Framer Motion, and glassmorphism UI.",
+      description: "Transforming design mockups into liquid-smooth web experiences with GSAP, Framer Motion, and glassmorphic UI.",
       icon: "Layout",
       highlights: [
         "Micro-animations & scroll interactions",

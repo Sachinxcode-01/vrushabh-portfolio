@@ -6,7 +6,7 @@ import { ArrowDown, FileText, Mail, Sparkles, MapPin, GraduationCap, CheckCircle
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
 import { TechCanvas } from '@/components/three/TechCanvas';
-import { GithubIcon, LinkedinIcon, InstagramIcon } from '@/components/ui/Icons';
+import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/components/ui/Icons';
 import { RotatingRoles } from '@/components/animations/RotatingRoles';
 import { TypingHeading } from '@/components/animations/TypingHeading';
 import { MagneticButton } from '@/components/animations/MagneticButton';
@@ -119,52 +119,87 @@ export function HeroSection() {
               </MagneticButton>
             </div>
 
-            {/* Social Links & Location */}
+            {/* Social Icons & Tooltips */}
             <div
               ref={socialsRef}
               className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-sm text-gray-400"
             >
               <div className="flex items-center gap-3">
-                <MagneticButton>
-                  <a
-                    href={portfolioData.personal.socials.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all block"
-                    aria-label="GitHub Profile"
-                  >
-                    <GithubIcon className="w-5 h-5" />
-                  </a>
-                </MagneticButton>
-                <MagneticButton>
-                  <a
-                    href={portfolioData.personal.socials.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all block"
-                    aria-label="LinkedIn Profile"
-                  >
-                    <LinkedinIcon className="w-5 h-5" />
-                  </a>
-                </MagneticButton>
+                {/* Instagram */}
                 <MagneticButton>
                   <a
                     href={portfolioData.personal.socials.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all block"
-                    aria-label="Instagram Profile"
+                    aria-label="Visit Vrushabh B on Instagram"
+                    className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
-                    <InstagramIcon className="w-5 h-5" />
+                    <InstagramIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                      Instagram
+                    </span>
                   </a>
                 </MagneticButton>
+
+                {/* Facebook */}
+                <MagneticButton>
+                  <a
+                    href={portfolioData.personal.socials.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Vrushabh B on Facebook"
+                    className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
+                  >
+                    <FacebookIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                      Facebook
+                    </span>
+                  </a>
+                </MagneticButton>
+
+                {/* Email */}
                 <MagneticButton>
                   <a
                     href={`mailto:${portfolioData.personal.socials.email}`}
-                    className="p-3 rounded-xl glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all block"
-                    aria-label="Send Email"
+                    aria-label="Email Vrushabh B"
+                    className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
-                    <Mail className="w-5 h-5" />
+                    <Mail className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                      Email
+                    </span>
+                  </a>
+                </MagneticButton>
+
+                {/* GitHub */}
+                <MagneticButton>
+                  <a
+                    href={portfolioData.personal.socials.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Vrushabh B on GitHub"
+                    className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
+                  >
+                    <GithubIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                      GitHub
+                    </span>
+                  </a>
+                </MagneticButton>
+
+                {/* LinkedIn */}
+                <MagneticButton>
+                  <a
+                    href={portfolioData.personal.socials.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Vrushabh B on LinkedIn"
+                    className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
+                  >
+                    <LinkedinIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
+                      LinkedIn
+                    </span>
                   </a>
                 </MagneticButton>
               </div>
@@ -201,7 +236,7 @@ export function HeroSection() {
                     sizes="(max-width: 768px) 90vw, 430px"
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Subtle Ambient Overlay */}
+                  {/* Ambient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#05070f]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
                 </div>
 

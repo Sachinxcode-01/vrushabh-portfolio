@@ -2,7 +2,7 @@
 
 import { ArrowUp, Mail, Code2 } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
-import { GithubIcon, LinkedinIcon, InstagramIcon } from '@/components/ui/Icons';
+import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/components/ui/Icons';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,13 +33,40 @@ export function Footer() {
             <p className="text-gray-400 text-sm max-w-md leading-relaxed">
               Computer Science Engineering student at Rural Engineering College, Hulkoti. Building interactive 3D web applications, scalable software tools, and modern digital experiences.
             </p>
+
+            {/* Social Media Links */}
             <div className="flex items-center gap-3 pt-2">
+              <a
+                href={portfolioData.personal.socials.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Vrushabh B on Instagram"
+                className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
+              >
+                <InstagramIcon className="w-5 h-5" />
+              </a>
+              <a
+                href={portfolioData.personal.socials.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit Vrushabh B on Facebook"
+                className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
+              >
+                <FacebookIcon className="w-5 h-5" />
+              </a>
+              <a
+                href={`mailto:${portfolioData.personal.socials.email}`}
+                aria-label="Email Vrushabh B"
+                className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
               <a
                 href={portfolioData.personal.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit Vrushabh B on GitHub"
                 className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-                aria-label="GitHub Profile"
               >
                 <GithubIcon className="w-5 h-5" />
               </a>
@@ -47,26 +74,10 @@ export function Footer() {
                 href={portfolioData.personal.socials.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit Vrushabh B on LinkedIn"
                 className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-                aria-label="LinkedIn Profile"
               >
                 <LinkedinIcon className="w-5 h-5" />
-              </a>
-              <a
-                href={portfolioData.personal.socials.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-                aria-label="Instagram Profile"
-              >
-                <InstagramIcon className="w-5 h-5" />
-              </a>
-              <a
-                href={`mailto:${portfolioData.personal.socials.email}`}
-                className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 transition-all"
-                aria-label="Email Direct"
-              >
-                <Mail className="w-5 h-5" />
               </a>
             </div>
           </div>

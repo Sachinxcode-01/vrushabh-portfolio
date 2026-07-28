@@ -11,10 +11,11 @@ export interface PersonalDetails {
   profileImage: string;
   resumeUrl: string;
   socials: {
+    email: string;
+    instagram: string;
+    facebook: string;
     github: string;
     linkedin: string;
-    instagram: string;
-    email: string;
   };
 }
 
