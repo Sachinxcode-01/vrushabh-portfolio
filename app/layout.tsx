@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
-import { CustomCursor } from '@/components/ui/CustomCursor';
 import { PortfolioLoader } from '@/components/loading/PortfolioLoader';
 import { GlobalBackground } from '@/components/background/GlobalBackground';
 import { portfolioData } from '@/data/portfolio';
@@ -84,7 +83,6 @@ export default function RootLayout({
       </head>
       <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white relative">
         <PortfolioLoader />
-        <CustomCursor />
         <GlobalBackground />
         <SmoothScroll>{children}</SmoothScroll>
       </body>

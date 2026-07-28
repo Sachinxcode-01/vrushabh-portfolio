@@ -3,7 +3,6 @@
 import { AnimatedGradientMesh } from './AnimatedGradientMesh';
 import { GridOverlay } from './GridOverlay';
 import { ParticleField } from './ParticleField';
-import { CursorLight } from './CursorLight';
 import { NoiseOverlay } from './NoiseOverlay';
 
 export function GlobalBackground() {
@@ -13,7 +12,6 @@ export function GlobalBackground() {
       <AnimatedGradientMesh />
       <GridOverlay />
       <ParticleField />
-      <CursorLight />
       <NoiseOverlay />
     </>
   );
