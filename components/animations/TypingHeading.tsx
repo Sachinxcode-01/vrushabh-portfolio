@@ -1,111 +1,101 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 interface TypingHeadingProps {
+  loadingComplete?: boolean;
   onComplete?: () => void;
 }
 
-export function TypingHeading({ onComplete }: TypingHeadingProps) {
-  const introRef = useRef<HTMLSpanElement>(null);
+export function TypingHeading({ loadingComplete = true, onComplete }: TypingHeadingProps) {
+  const greetingRef = useRef<HTMLSpanElement>(null);
   const nameRef = useRef<HTMLSpanElement>(null);
   const cursorRef = useRef<HTMLSpanElement>(null);
-  const containerRef = useRef<HTMLHeadingElement>(null);
-  const [mounted, setMounted] = useState(false);
+  const hasAnimatedRef = useRef(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (!loadingComplete || hasAnimatedRef.current) return;
 
-  useEffect(() => {
-    if (!mounted) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const introText = "Hi, I’m ";
+    const greetingText = "Hi, I’m ";
     const nameText = "Vrushabh B";
-    const introEl = introRef.current;
-    const nameEl = nameRef.current;
-
-    if (!introEl || !nameEl) return;
-
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
 
     if (reduceMotion) {
-      introEl.textContent = introText;
-      nameEl.textContent = nameText;
+      if (greetingRef.current) greetingRef.current.textContent = greetingText;
+      if (nameRef.current) nameRef.current.textContent = nameText;
+      if (cursorRef.current) cursorRef.current.style.opacity = '0.3';
+      hasAnimatedRef.current = true;
       if (onComplete) onComplete();
       return;
     }
 
-    introEl.textContent = "";
-    nameEl.textContent = "";
-
-    const introState = { length: 0 };
+    const greetingState = { length: 0 };
     const nameState = { length: 0 };
 
     const ctx = gsap.context(() => {
-      // Fade in & blur-to-clear container entrance
-      gsap.fromTo(
-        containerRef.current,
-        { opacity: 0, y: 20, filter: 'blur(8px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }
-      );
-
-      // Blinking cursor
-      gsap.to(cursorRef.current, {
-        opacity: 0,
-        duration: 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
-      });
-
-      // Typing timeline
       const tl = gsap.timeline({
+        delay: 0.3,
         onComplete: () => {
+          hasAnimatedRef.current = true;
+          // Fade cursor slightly after typing finishes
+          if (cursorRef.current) {
+            gsap.to(cursorRef.current, { opacity: 0.3, duration: 0.5 });
+          }
           if (onComplete) onComplete();
         },
       });
 
-      // Step 1: Type "Hi, I'm "
-      tl.to(introState, {
-        length: introText.length,
-        duration: 0.8,
-        ease: "none",
+      // 1. Type "Hi, I’m "
+      tl.to(greetingState, {
+        length: greetingText.length,
+        duration: 1.25,
+        ease: 'none',
         onUpdate: () => {
-          introEl.textContent = introText.slice(0, Math.round(introState.length));
+          if (greetingRef.current) {
+            greetingRef.current.textContent = greetingText.slice(
+              0,
+              Math.round(greetingState.length)
+            );
+          }
         },
-      })
-      // Step 2: Type "Vrushabh B"
-      .to(nameState, {
+      });
+
+      // 2. Type "Vrushabh B" with gradient styling
+      tl.to(nameState, {
         length: nameText.length,
-        duration: 1.0,
-        ease: "none",
+        duration: 1.8,
+        ease: 'none',
         onUpdate: () => {
-          nameEl.textContent = nameText.slice(0, Math.round(nameState.length));
+          if (nameRef.current) {
+            nameRef.current.textContent = nameText.slice(
+              0,
+              Math.round(nameState.length)
+            );
+          }
         },
       });
     });
 
     return () => ctx.revert();
-  }, [mounted, onComplete]);
+  }, [loadingComplete, onComplete]);
 
   return (
     <h1
-      ref={containerRef}
+      aria-label="Hi, I’m Vrushabh B"
       className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight"
     >
-      <span ref={introRef} />
+      <span ref={greetingRef} aria-hidden="true" className="inline-block" />
       <span
         ref={nameRef}
-        className="name-gradient drop-shadow-[0_0_25px_rgba(34,211,238,0.3)] inline-block"
+        aria-hidden="true"
+        className="hero-name-gradient inline-block font-extrabold"
       />
       <span
         ref={cursorRef}
         aria-hidden="true"
-        className="ml-1 inline-block text-cyan-400 font-mono font-normal"
+        className="typing-cursor animate-pulse text-cyan-400 font-normal ml-1"
       >
         |
       </span>

@@ -2,20 +2,22 @@
 
 import { useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import { ArrowDown, FileText, Mail, Sparkles, MapPin, GraduationCap, CheckCircle } from 'lucide-react';
+import { FileText, Mail, Sparkles, MapPin, GraduationCap, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { portfolioData } from '@/data/portfolio';
-import { TechCanvas } from '@/components/three/TechCanvas';
+import { HeroAuroraBackground } from '@/components/background/HeroAuroraBackground';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/components/ui/Icons';
 import { RotatingRoles } from '@/components/animations/RotatingRoles';
 import { TypingHeading } from '@/components/animations/TypingHeading';
 import { MagneticButton } from '@/components/animations/MagneticButton';
-import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
 import { ImageReveal } from '@/components/animations/ImageReveal';
-import { useGSAP } from '@/hooks/useGSAP';
 import { gsap } from 'gsap';
 
-export function HeroSection() {
+interface HeroSectionProps {
+  loadingComplete?: boolean;
+}
+
+export function HeroSection({ loadingComplete = true }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const roleRef = useRef<HTMLDivElement>(null);
@@ -23,63 +25,88 @@ export function HeroSection() {
   const ctaRef = useRef<HTMLDivElement>(null);
   const socialsRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
-  const [typingComplete, setTypingComplete] = useState(false);
+  const [typingDone, setTypingDone] = useState(false);
 
   const handleTypingComplete = useCallback(() => {
-    setTypingComplete(true);
+    setTypingDone(true);
 
     if (!containerRef.current) return;
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    tl.fromTo(badgeRef.current, { y: -15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 })
-      .fromTo(roleRef.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6 }, '-=0.2')
-      .fromTo(bioRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
-      .fromTo(ctaRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.3')
-      .fromTo(socialsRef.current, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 }, '-=0.3')
-      .fromTo(imageContainerRef.current, { scale: 0.95, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.9, ease: 'expo.out' }, '-=0.8')
-      .fromTo(scrollIndicatorRef.current, { opacity: 0 }, { opacity: 1, duration: 0.4 }, '-=0.2');
+    // Step 1: Subtitle & Bio Reveal after Typing Completes
+    tl.fromTo(
+      roleRef.current,
+      { filter: 'blur(8px)', opacity: 0, y: 15 },
+      { filter: 'blur(0px)', opacity: 1, y: 0, duration: 0.6 }
+    )
+      .fromTo(
+        bioRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        '-=0.3'
+      )
+      .fromTo(
+        ctaRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6 },
+        '-=0.3'
+      )
+      .fromTo(
+        socialsRef.current,
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.5 },
+        '-=0.3'
+      )
+      .fromTo(
+        imageContainerRef.current,
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 0.8, ease: 'expo.out' },
+        '-=0.7'
+      );
   }, []);
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center pt-24 pb-16 overflow-hidden bg-transparent"
+      className="relative min-h-[100svh] flex items-center justify-center pt-32 sm:pt-40 pb-20 overflow-hidden bg-transparent"
     >
-      {/* 3D Tech Canvas */}
-      <TechCanvas />
-
-      {/* Section Ambient Glow */}
-      <SectionAmbientLight color="cyan" position="right" />
+      {/* Premium Aurora Code Atmosphere Background */}
+      <HeroAuroraBackground />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Typing Heading & Text Content */}
+          {/* Left Column: Academic Badge, Slow Typing Heading, Text Content */}
           <div className="lg:col-span-7 text-center lg:text-left space-y-6">
             
-            {/* Status Pill Badge */}
-            <div ref={badgeRef} className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-lg shadow-cyan-500/10">
+            {/* Academic Status Badge */}
+            <div
+              ref={badgeRef}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-lg shadow-cyan-500/10"
+            >
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <GraduationCap className="w-3.5 h-3.5 text-cyan-400" />
               <span>{portfolioData.personal.academicYear} • {portfolioData.personal.college}</span>
             </div>
 
-            {/* Premium Hero Typing Heading */}
-            <TypingHeading onComplete={handleTypingComplete} />
+            {/* Slow Typing Heading */}
+            <TypingHeading
+              loadingComplete={loadingComplete}
+              onComplete={handleTypingComplete}
+            />
 
-            {/* Rotating Roles Text Switcher */}
-            <div ref={roleRef} className="my-2">
+            {/* Rotating Professional Role Subtitle */}
+            <div ref={roleRef} className="my-2 opacity-0">
               <RotatingRoles />
             </div>
 
             {/* Biography */}
             <p
               ref={bioRef}
-              className="text-base sm:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
+              className="text-base sm:text-lg text-gray-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal opacity-0"
             >
               {portfolioData.personal.bio}
             </p>
@@ -87,12 +114,12 @@ export function HeroSection() {
             {/* CTA Buttons */}
             <div
               ref={ctaRef}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2 opacity-0"
             >
               <MagneticButton>
                 <a
                   href="#projects"
-                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-semibold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 flex items-center gap-2 group"
+                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-violet-600 to-blue-500 text-white font-semibold text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105 transition-all duration-300 flex items-center gap-2 group"
                 >
                   <span>View My Work</span>
                   <Sparkles className="w-4 h-4 text-cyan-200 group-hover:rotate-12 transition-transform" />
@@ -119,10 +146,10 @@ export function HeroSection() {
               </MagneticButton>
             </div>
 
-            {/* Social Icons & Tooltips */}
+            {/* Social Icons & Location */}
             <div
               ref={socialsRef}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-sm text-gray-400"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4 text-sm text-gray-400 opacity-0"
             >
               <div className="flex items-center gap-3">
                 {/* Instagram */}
@@ -135,9 +162,6 @@ export function HeroSection() {
                     className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
                     <InstagramIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-                      Instagram
-                    </span>
                   </a>
                 </MagneticButton>
 
@@ -151,9 +175,6 @@ export function HeroSection() {
                     className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
                     <FacebookIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-                      Facebook
-                    </span>
                   </a>
                 </MagneticButton>
 
@@ -165,9 +186,6 @@ export function HeroSection() {
                     className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
                     <Mail className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-                      Email
-                    </span>
                   </a>
                 </MagneticButton>
 
@@ -181,9 +199,6 @@ export function HeroSection() {
                     className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
                     <GithubIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-                      GitHub
-                    </span>
                   </a>
                 </MagneticButton>
 
@@ -197,9 +212,6 @@ export function HeroSection() {
                     className="group relative p-3 rounded-full glass-panel text-gray-300 hover:text-cyan-400 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all block"
                   >
                     <LinkedinIcon className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-                    <span className="absolute -top-9 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-md bg-[#05070f] border border-cyan-500/40 text-[10px] font-mono text-cyan-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl">
-                      LinkedIn
-                    </span>
                   </a>
                 </MagneticButton>
               </div>
@@ -212,20 +224,16 @@ export function HeroSection() {
 
           </div>
 
-          {/* Right Column: Hero Profile Portrait Composition */}
+          {/* Right Column: Clean Profile Portrait Composition */}
           <div className="lg:col-span-5 flex justify-center relative">
             <div
               ref={imageContainerRef}
-              className="relative w-full max-w-[380px] sm:max-w-[430px] aspect-[4/5] group"
+              className="relative w-full max-w-[360px] sm:max-w-[420px] aspect-[4/5] group opacity-0"
             >
-              {/* Soft Cyan & Violet Lighting Behind Portrait */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/30 via-violet-600/30 to-blue-500/30 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              {/* Soft Ambient Lighting Behind Portrait */}
+              <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/25 via-violet-600/25 to-blue-500/25 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              {/* Orbiting Tech Rings */}
-              <div className="absolute -inset-6 rounded-[2.5rem] border border-cyan-500/20 border-dashed animate-[spin_25s_linear_infinite] pointer-events-none" />
-              <div className="absolute -inset-10 rounded-[3rem] border border-violet-500/15 border-dashed animate-[spin_35s_linear_infinite_reverse] pointer-events-none" />
-
-              {/* Main Image Glass Frame Container */}
+              {/* Glass Frame Container */}
               <ImageReveal className="w-full h-full rounded-3xl p-1.5 bg-gradient-to-b from-cyan-400/40 via-violet-500/30 to-blue-500/40 shadow-2xl glass-panel">
                 <div className="relative w-full h-full rounded-[22px] overflow-hidden bg-slate-900">
                   <Image
@@ -233,22 +241,19 @@ export function HeroSection() {
                     alt="Vrushabh B"
                     fill
                     priority
-                    sizes="(max-width: 768px) 90vw, 430px"
+                    sizes="(max-width: 768px) 90vw, 420px"
                     className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Ambient Overlay */}
+                  {/* Dark Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#05070f]/80 via-transparent to-transparent opacity-60 pointer-events-none" />
                 </div>
-
-                {/* Animated Light Sweep */}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
               </ImageReveal>
 
-              {/* Floating Glass Info Cards Around Image */}
+              {/* Floating Info Cards */}
               <motion.div
-                animate={{ y: [0, -8, 0] }}
+                animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-4 -left-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-cyan-500/40 flex items-center gap-2.5 shadow-xl shadow-cyan-500/10"
+                className="absolute -top-4 -left-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-cyan-500/40 flex items-center gap-2.5 shadow-xl"
               >
                 <div className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300">
                   <GraduationCap className="w-4 h-4" />
@@ -260,9 +265,9 @@ export function HeroSection() {
               </motion.div>
 
               <motion.div
-                animate={{ y: [0, 8, 0] }}
+                animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute -bottom-4 -right-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-violet-500/40 flex items-center gap-2.5 shadow-xl shadow-violet-500/10"
+                className="absolute -bottom-4 -right-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-violet-500/40 flex items-center gap-2.5 shadow-xl"
               >
                 <div className="p-1.5 rounded-lg bg-violet-500/20 text-violet-300">
                   <CheckCircle className="w-4 h-4" />
@@ -276,17 +281,6 @@ export function HeroSection() {
             </div>
           </div>
 
-        </div>
-
-        {/* Scroll Indicator */}
-        <div ref={scrollIndicatorRef} className="mt-16 flex justify-center">
-          <a
-            href="#about"
-            className="flex flex-col items-center gap-2 text-xs font-mono text-gray-400 hover:text-cyan-400 transition-colors group"
-          >
-            <span>Scroll Down</span>
-            <ArrowDown className="w-4 h-4 text-cyan-400 animate-bounce" />
-          </a>
         </div>
       </div>
     </section>
