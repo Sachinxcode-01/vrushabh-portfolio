@@ -1,143 +1,117 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-
-interface Dot {
-  x: number
-  y: number
-  render: (ctx: CanvasRenderingContext2D, mouse: { x: number; y: number }, params: CanvasParams) => void
-}
-
-interface CanvasParams {
-  dotDistance: number
-  dotRadius: number
-  minProximity: number
-  repaintAlpha: number
-}
+import { useEffect, useRef } from "react";
 
 interface InteractiveGridProps {
-  dotDistance?: number
-  dotRadius?: number
-  minProximity?: number
-  repaintAlpha?: number 
+  dotDistance?: number;
+  dotRadius?: number;
+  minProximity?: number;
 }
 
 export function InteractiveGrid({
-  dotDistance = 30,
-  dotRadius = 2,
-  minProximity = 200,
-  repaintAlpha = 1, 
+  dotDistance = 34,
+  dotRadius = 1.2,
+  minProximity = 160,
 }: InteractiveGridProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [params] = useState<CanvasParams>({
-    dotDistance,
-    dotRadius,
-    minProximity,
-    repaintAlpha,
-  })
-  const [mouse, setMouse] = useState({ x: 0, y: 0 })
-  const [hue, setHue] = useState(0)
-  const dotsRef = useRef<Dot[]>([])
-  const minProxSquaredRef = useRef(params.minProximity * params.minProximity)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef<{ x: number; y: number }>({ x: -1000, y: -1000 });
+  const animFrameRef = useRef<number | null>(null);
 
-  const createDots = (w: number, h: number) => {
-    const newDots: Dot[] = []
-    for (let x = 0; x < w; x += params.dotDistance) {
-      for (let y = 0; y < h; y += params.dotDistance) {
-        newDots.push({
-          x,
-          y,
-          render: (ctx, mousePos, p) => {
-            const dX = x - mousePos.x
-            const dY = y - mousePos.y
-            const distSquared = dX * dX + dY * dY
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-            if (distSquared <= minProxSquaredRef.current) {
-              const brightness = 50 - (distSquared / minProxSquaredRef.current) * 40
-              const color = `hsl(${hue}, 80%, ${brightness}%)`
+    const ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
 
-              ctx.fillStyle = color
-              ctx.strokeStyle = color
-              ctx.beginPath()
-              ctx.arc(x, y, p.dotRadius, 0, Math.PI * 2)
-              ctx.fill()
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
 
-              ctx.beginPath()
-              ctx.moveTo(x, y)
-              ctx.lineTo(mousePos.x, mousePos.y)
-              ctx.stroke()
-            } else {
-              ctx.fillStyle = "rgba(34, 34, 34, 0.5)" // dim neutral dots
-              ctx.beginPath()
-              ctx.arc(x, y, p.dotRadius, 0, Math.PI * 2)
-              ctx.fill()
-            }
-          },
-        })
+    const handleResize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.scale(dpr, dpr);
+    };
+
+    handleResize();
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current.x = e.clientX;
+      mouseRef.current.y = e.clientY;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.x = -1000;
+      mouseRef.current.y = -1000;
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave);
+
+    const minProxSq = minProximity * minProximity;
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+
+      for (let x = dotDistance / 2; x < width; x += dotDistance) {
+        for (let y = dotDistance / 2; y < height; y += dotDistance) {
+          const dx = x - mx;
+          const dy = y - my;
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < minProxSq) {
+            const factor = 1 - distSq / minProxSq; // 0 to 1
+            const r = dotRadius + factor * 1.2;
+            const alpha = 0.15 + factor * 0.65;
+
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(56, 189, 248, ${alpha})`;
+            ctx.shadowColor = "rgba(56, 189, 248, 0.4)";
+            ctx.shadowBlur = factor * 6;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          } else {
+            ctx.beginPath();
+            ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
+            ctx.fill();
+          }
+        }
       }
-    }
-    dotsRef.current = newDots
-  }
 
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    createDots(canvas.width, canvas.height)
-  }, [params.dotDistance])
+      animFrameRef.current = requestAnimationFrame(render);
+    };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const rect = canvas.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    setMouse({ x, y })
-    setHue(((x / canvas.width + y / canvas.height) * 360) % 360)
-  }
+    render();
 
-  const handleResize = () => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    createDots(canvas.width, canvas.height)
-  }
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [params])
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-    const animate = () => {
-      // Clear the canvas (no background fill → transparent)
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      dotsRef.current.forEach((dot) => dot.render(ctx, mouse, params))
-      requestAnimationFrame(animate)
-    }
-
-    animate()
-  }, [params, mouse])
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      if (animFrameRef.current) {
+        cancelAnimationFrame(animFrameRef.current);
+      }
+    };
+  }, [dotDistance, dotRadius, minProximity]);
 
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden bg-transparent pointer-events-none z-0">
+    <div className="fixed inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0"
-        style={{ display: "block", background: "transparent" }}
+        className="absolute top-0 left-0 w-full h-full opacity-60"
+        style={{ pointerEvents: "none" }}
       />
     </div>
-  )
+  );
 }

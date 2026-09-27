@@ -1,19 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
+
+const emptySubscribe = () => () => {};
+
+function checkEnabled(): boolean {
+  if (typeof window === 'undefined') return false;
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  return !isTouch && !reduceMotion;
+}
 
 export function CursorAmbientLight() {
   const [pos, setPos] = useState({ x: -500, y: -500 });
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(emptySubscribe, checkEnabled, () => false);
 
   useEffect(() => {
-    // Disable on touch devices and reduced-motion mode
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (isTouch || reduceMotion) return;
-
-    setEnabled(true);
+    if (!enabled) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
@@ -21,7 +24,7 @@ export function CursorAmbientLight() {
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [enabled]);
 
   if (!enabled) return null;
 

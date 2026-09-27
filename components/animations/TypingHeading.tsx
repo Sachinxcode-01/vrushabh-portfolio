@@ -20,7 +20,7 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const greetingText = "Hi, I’m ";
-    const nameText = " Vrushabh B";
+    const nameText = "Vrushabh B";
 
     if (reduceMotion) {
       if (greetingRef.current) greetingRef.current.textContent = greetingText;
@@ -36,22 +36,21 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        delay: 0.3,
+        delay: 0.15,
         onComplete: () => {
           hasAnimatedRef.current = true;
-          // Fade cursor slightly after typing finishes
           if (cursorRef.current) {
-            gsap.to(cursorRef.current, { opacity: 0.3, duration: 0.5 });
+            gsap.to(cursorRef.current, { opacity: 0.4, duration: 0.4 });
           }
           if (onComplete) onComplete();
         },
       });
 
-      // 1. Type "Hi, I’m "
+      // 1. Natural fast typing for greeting
       tl.to(greetingState, {
         length: greetingText.length,
-        duration: 1.25,
-        ease: 'none',
+        duration: 0.6,
+        ease: 'power1.out',
         onUpdate: () => {
           if (greetingRef.current) {
             greetingRef.current.textContent = greetingText.slice(
@@ -65,8 +64,8 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
       // 2. Type "Vrushabh B" with electric animated gradient styling
       tl.to(nameState, {
         length: nameText.length,
-        duration: 1.8,
-        ease: 'none',
+        duration: 0.8,
+        ease: 'power1.out',
         onUpdate: () => {
           if (nameRef.current) {
             nameRef.current.textContent = nameText.slice(
@@ -84,18 +83,22 @@ export function TypingHeading({ loadingComplete = true, onComplete }: TypingHead
   return (
     <h1
       aria-label="Hi, I’m Vrushabh B"
-      className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight"
+      className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1] select-none"
     >
-      <span ref={greetingRef} aria-hidden="true" className="inline whitespace-pre" />
+      <span ref={greetingRef} aria-hidden="true" className="inline whitespace-pre">
+        Hi, I’m{' '}
+      </span>
       <span
         ref={nameRef}
         aria-hidden="true"
         className="hero-name-gradient inline font-extrabold"
-      />
+      >
+        Vrushabh B
+      </span>
       <span
         ref={cursorRef}
         aria-hidden="true"
-        className="typing-cursor animate-pulse text-cyan-400 font-normal ml-1"
+        className="typing-cursor animate-pulse text-cyan-400 font-light ml-1.5"
       >
         |
       </span>

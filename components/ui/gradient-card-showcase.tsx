@@ -1,4 +1,8 @@
+'use client';
+
 import React from 'react';
+import { ArrowUpRight, Code2, Cpu, Sparkles, Layers } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export interface CardItem {
   title: string;
@@ -6,29 +10,33 @@ export interface CardItem {
   gradientFrom: string;
   gradientTo: string;
   link?: string;
+  icon?: React.ReactNode;
 }
 
 const defaultCards: CardItem[] = [
   {
-    title: 'Full-Stack Development',
-    desc: 'Building responsive Next.js App Router applications, RESTful APIs, and cloud database integrations.',
+    title: 'Full-Stack Web Development',
+    desc: 'Engineering high-performance Next.js App Router applications, secure RESTful APIs, and cloud database architectures.',
     gradientFrom: '#06b6d4',
     gradientTo: '#3b82f6',
     link: '#projects',
+    icon: <Code2 className="w-6 h-6 text-cyan-400" />,
   },
   {
-    title: 'Interactive Motion UI',
-    desc: 'Crafting fluid web experiences with GSAP ScrollTrigger, Framer Motion, and glassmorphism styling.',
+    title: 'UI / UX & Interactive Motion',
+    desc: 'Crafting fluid digital experiences with GSAP ScrollTrigger, Framer Motion, 3D WebGL graphics, and glassmorphic micro-interactions.',
     gradientFrom: '#8b5cf6',
     gradientTo: '#ec4899',
     link: '#skills',
+    icon: <Sparkles className="w-6 h-6 text-violet-400" />,
   },
   {
-    title: 'Algorithmic Problem Solving',
-    desc: 'Applying core data structures and object-oriented principles in C++, Python, and Java.',
+    title: 'Software & Algorithm Engineering',
+    desc: 'Applying core data structures and object-oriented principles (C++, Python, Java) to solve complex computational problems.',
     gradientFrom: '#10b981',
     gradientTo: '#06b6d4',
     link: '#education',
+    icon: <Cpu className="w-6 h-6 text-emerald-400" />,
   },
 ];
 
@@ -38,64 +46,59 @@ interface SkewCardsProps {
 
 export default function SkewCards({ cards = defaultCards }: SkewCardsProps) {
   return (
-    <>
-      <div className="flex justify-center items-center flex-wrap py-10 bg-transparent min-h-[420px]">
-        {cards.map(({ title, desc, gradientFrom, gradientTo, link = '#' }, idx) => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto py-6">
+      {cards.map((card, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: idx * 0.15 }}
+          className="group relative rounded-2xl p-px transition-all duration-500 hover:-translate-y-2 h-full"
+        >
+          {/* Glowing Ambient Border */}
           <div
-            key={idx}
-            className="group relative w-[320px] h-[400px] m-[30px_20px] transition-all duration-500"
-          >
-            {/* Skewed gradient panels */}
-            <span
-              className="absolute top-0 left-[50px] w-1/2 h-full rounded-lg transform skew-x-[15deg] transition-all duration-500 group-hover:skew-x-0 group-hover:left-[20px] group-hover:w-[calc(100%-90px)]"
-              style={{
-                background: `linear-gradient(315deg, ${gradientFrom}, ${gradientTo})`,
-              }}
-            />
-            <span
-              className="absolute top-0 left-[50px] w-1/2 h-full rounded-lg transform skew-x-[15deg] blur-[30px] transition-all duration-500 group-hover:skew-x-0 group-hover:left-[20px] group-hover:w-[calc(100%-90px)]"
-              style={{
-                background: `linear-gradient(315deg, ${gradientFrom}, ${gradientTo})`,
-              }}
-            />
+            className="absolute -inset-0.5 rounded-2xl opacity-40 group-hover:opacity-100 blur-sm transition-opacity duration-500"
+            style={{
+              background: `linear-gradient(135deg, ${card.gradientFrom}, ${card.gradientTo})`,
+            }}
+          />
 
-            {/* Animated blurs */}
-            <span className="pointer-events-none absolute inset-0 z-10">
-              <span className="absolute top-0 left-0 w-0 h-0 rounded-lg opacity-0 bg-[rgba(255,255,255,0.1)] backdrop-blur-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.08)] transition-all duration-100 animate-blob group-hover:top-[-50px] group-hover:left-[50px] group-hover:w-[100px] group-hover:h-[100px] group-hover:opacity-100" />
-              <span className="absolute bottom-0 right-0 w-0 h-0 rounded-lg opacity-0 bg-[rgba(255,255,255,0.1)] backdrop-blur-[10px] shadow-[0_5px_15px_rgba(0,0,0,0.08)] transition-all duration-500 animate-blob animation-delay-1000 group-hover:bottom-[-50px] group-hover:right-[50px] group-hover:w-[100px] group-hover:h-[100px] group-hover:opacity-100" />
-            </span>
-
-            {/* Content */}
-            <div className="relative z-20 left-0 p-[20px_35px] bg-[#05070f]/90 border border-white/10 backdrop-blur-[12px] shadow-2xl rounded-xl text-white transition-all duration-500 group-hover:left-[-20px] group-hover:p-[45px_35px] h-full flex flex-col justify-between">
-              <div>
-                <h2 className="text-xl font-bold mb-3 tracking-tight group-hover:text-cyan-300 transition-colors">
-                  {title}
-                </h2>
-                <p className="text-xs text-gray-300 leading-relaxed mb-4">
-                  {desc}
-                </p>
+          {/* Card Inner Container */}
+          <div className="relative rounded-2xl bg-[#080d1a]/95 backdrop-blur-xl border border-white/8 p-7 sm:p-8 h-full flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              {/* Icon Container */}
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center p-2.5 transition-transform duration-300 group-hover:scale-110"
+                style={{
+                  background: `linear-gradient(135deg, ${card.gradientFrom}20, ${card.gradientTo}10)`,
+                  border: `1px solid ${card.gradientFrom}40`,
+                }}
+              >
+                {card.icon || <Layers className="w-6 h-6 text-cyan-400" />}
               </div>
 
+              <h3 className="text-xl font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors">
+                {card.title}
+              </h3>
+
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                {card.desc}
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-white/8">
               <a
-                href={link}
-                className="inline-block text-xs font-bold text-white bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-violet-600 hover:border-transparent px-4 py-2.5 rounded-lg transition-all text-center"
+                href={card.link || '#contact'}
+                className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-cyan-400 group-hover:text-white transition-colors"
               >
-                Learn More
+                <span>Learn More</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Tailwind custom utilities for animation */}
-      <style>{`
-        @keyframes blob {
-          0%, 100% { transform: translateY(10px); }
-          50% { transform: translate(-10px); }
-        }
-        .animate-blob { animation: blob 2s ease-in-out infinite; }
-        .animation-delay-1000 { animation-delay: -1s; }
-      `}</style>
-    </>
+        </motion.div>
+      ))}
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useMounted } from '@/hooks/useMounted';
 
 interface Particle {
   id: number;
@@ -13,31 +13,31 @@ interface Particle {
   initialOpacity: number;
 }
 
+const PARTICLES: Particle[] = Array.from({ length: 24 }, (_, i) => {
+  const seed1 = Math.abs(Math.sin(i * 12.9898 + 78.233));
+  const seed2 = Math.abs(Math.cos(i * 4.1414 + 12.515));
+  const seed3 = Math.abs(Math.sin(i * 99.1 + 45.2));
+  return {
+    id: i,
+    x: seed1 * 100,
+    y: seed2 * 100,
+    size: seed3 * 3 + 1,
+    duration: seed1 * 15 + 15,
+    delay: seed2 * 5,
+    initialOpacity: seed3 * 0.4 + 0.1,
+  };
+});
+
 export function ParticleField() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const mounted = useMounted();
 
-  useEffect(() => {
-    // Generate particles on client mount to prevent SSR hydration mismatches
-    const generated: Particle[] = Array.from({ length: 24 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 15 + 15,
-      delay: Math.random() * 5,
-      initialOpacity: Math.random() * 0.4 + 0.1,
-    }));
-
-    setParticles(generated);
-  }, []);
-
-  if (particles.length === 0) {
+  if (!mounted) {
     return <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" />;
   }
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {particles.map((p) => (
+      {PARTICLES.map((p) => (
         <motion.div
           key={p.id}
           initial={{

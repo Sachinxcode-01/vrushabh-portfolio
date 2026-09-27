@@ -20,13 +20,13 @@ export const LoaderProgress = forwardRef<HTMLDivElement, LoaderProgressProps>(
         <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden relative">
           <div
             ref={barRef}
-            className="w-full h-full bg-gradient-to-r from-cyan-400 via-violet-500 to-blue-500 rounded-full origin-left transform scale-x-0"
+            className="w-full h-full bg-linear-to-r from-cyan-400 via-violet-500 to-blue-500 rounded-full origin-left transform scale-x-0"
           />
         </div>
 
         {/* Percentage Counter & Decorative Marks */}
         <div className="flex items-center justify-between text-[11px] font-mono text-gray-400 px-1">
-          <span>// SYS_LOAD</span>
+          <span>{'//'} SYS_LOAD</span>
           <span ref={percentageRef} className="text-cyan-300 font-bold">
             0%
           </span>

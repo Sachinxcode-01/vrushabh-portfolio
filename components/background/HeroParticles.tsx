@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMounted } from '@/hooks/useMounted';
 
 interface Particle {
   id: number;
@@ -12,39 +12,30 @@ interface Particle {
   opacity: number;
 }
 
+const PARTICLES: Particle[] = Array.from({ length: 24 }, (_, i) => {
+  const seed1 = Math.abs(Math.sin(i * 12.9898 + 78.233));
+  const seed2 = Math.abs(Math.cos(i * 4.1414 + 12.515));
+  const seed3 = Math.abs(Math.sin(i * 99.1 + 45.2));
+
+  return {
+    id: i,
+    x: seed1 * 100,
+    y: seed2 * 100,
+    size: 1.5 + seed3 * 2,
+    duration: 12 + seed1 * 12,
+    delay: seed2 * 5,
+    opacity: 0.2 + seed3 * 0.4,
+  };
+});
+
 export function HeroParticles() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const mounted = useMounted();
 
-  useEffect(() => {
-    // Generate deterministic particles on client mount to eliminate hydration mismatch
-    const isMobile = window.innerWidth < 768;
-    const count = isMobile ? 14 : 32;
-
-    const generated: Particle[] = Array.from({ length: count }, (_, i) => {
-      // Deterministic math using sine formula
-      const seed1 = Math.abs(Math.sin(i * 12.9898 + 78.233));
-      const seed2 = Math.abs(Math.cos(i * 4.1414 + 12.515));
-      const seed3 = Math.abs(Math.sin(i * 99.1 + 45.2));
-
-      return {
-        id: i,
-        x: seed1 * 100,
-        y: seed2 * 100,
-        size: 1.5 + seed3 * 2,
-        duration: 12 + seed1 * 12,
-        delay: seed2 * 5,
-        opacity: 0.2 + seed3 * 0.4,
-      };
-    });
-
-    setParticles(generated);
-  }, []);
-
-  if (!particles.length) return null;
+  if (!mounted) return null;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-      {particles.map(p => (
+      {PARTICLES.map(p => (
         <div
           key={p.id}
           className="absolute rounded-full bg-cyan-300 animate-float"

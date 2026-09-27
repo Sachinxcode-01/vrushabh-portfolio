@@ -36,10 +36,12 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
 
     if (reduceMotion || hasLoaded === 'true') {
       document.body.style.overflow = '';
-      setActive(false);
-      if (onComplete) onComplete();
-      ScrollTrigger.refresh();
-      return;
+      const raf = requestAnimationFrame(() => {
+        setActive(false);
+        if (onComplete) onComplete();
+        ScrollTrigger.refresh();
+      });
+      return () => cancelAnimationFrame(raf);
     }
 
     const progressObj = { value: 0 };
@@ -111,7 +113,7 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
       role="status"
       aria-live="polite"
       aria-label="Loading Vrushabh B Portfolio"
-      className="fixed inset-0 z-[99999] flex flex-col items-center justify-center pointer-events-auto select-none bg-[#05070f]"
+      className="fixed inset-0 z-99999 flex flex-col items-center justify-center pointer-events-auto select-none bg-[#05070f]"
     >
       {/* Top Split Panel */}
       <div

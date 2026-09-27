@@ -15,7 +15,8 @@ export function ClientLoaderWrapper({ children }: ClientLoaderWrapperProps) {
     const hasLoaded = sessionStorage.getItem('vb_portfolio_loaded');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (hasLoaded === 'true' || reduceMotion) {
-      setIsLoaded(true);
+      const raf = requestAnimationFrame(() => setIsLoaded(true));
+      return () => cancelAnimationFrame(raf);
     }
   }, []);
 

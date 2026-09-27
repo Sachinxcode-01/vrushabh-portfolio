@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { SmoothScroll } from '@/components/layout/SmoothScroll';
 import { ClientLoaderWrapper } from '@/components/loading/ClientLoaderWrapper';
@@ -6,6 +7,21 @@ import { GlobalBackground } from '@/components/background/GlobalBackground';
 import { ScrollProgress } from '@/components/navigation/ScrollProgress';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
 import { portfolioData } from '@/data/portfolio';
+
+const sansFont = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+  weight: ['300', '400', '500', '600', '700', '800'],
+});
+
+const monoFont = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+});
+
 
 export const metadata: Metadata = {
   title: 'Vrushabh B | Computer Science Student & Developer',
@@ -76,14 +92,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className={`dark scroll-smooth ${sansFont.variable} ${monoFont.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="bg-[#05070f] text-gray-100 antialiased selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden">
+      <body className="bg-[#05070f] text-gray-100 font-sans antialiased selection:bg-cyan-500/30 selection:text-white relative overflow-x-hidden min-h-screen">
         <ScrollProgress />
         <GlobalBackground />
         <ClientLoaderWrapper>

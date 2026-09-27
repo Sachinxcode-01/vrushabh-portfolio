@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { Calendar, MapPin, BookOpen, CheckCircle } from 'lucide-react';
+import { Calendar, MapPin, BookOpen, CheckCircle, GraduationCap } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
 import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
 import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
@@ -31,23 +31,24 @@ export function EducationSection() {
   }, []);
 
   return (
-    <section id="education" className="relative py-24 bg-transparent overflow-hidden">
+    <section id="education" className="relative py-24 sm:py-32 bg-transparent overflow-hidden">
       {/* Section Ambient Glow */}
       <SectionAmbientLight color="cyan" position="left" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // 04. ACADEMIC JOURNEY
+        <div className="text-center mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+            <GraduationCap className="w-3.5 h-3.5" />
+            <span>05. ACADEMIC JOURNEY</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Education & <span className="hero-name-gradient font-extrabold">Milestones</span>
           </h2>
-          <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Education & <span className="text-gradient">Timeline</span>
-          </h3>
-          <p className="text-gray-400 text-sm max-w-xl mx-auto mt-3">
-            Academic milestones, foundational computer science coursework, and educational highlights.
+          <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mt-3">
+            Formal collegiate engineering education, foundational computer science coursework, and academic excellence.
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-violet-600 mx-auto mt-4 rounded-full" />
+          <div className="w-20 h-1 bg-linear-to-r from-cyan-400 to-violet-600 mx-auto mt-5 rounded-full" />
         </div>
 
         {/* Vertical Animated Timeline */}
@@ -56,7 +57,7 @@ export function EducationSection() {
           <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2">
             <div
               ref={lineRef}
-              className="w-full h-full bg-gradient-to-b from-cyan-400 via-violet-500 to-blue-500 origin-top"
+              className="w-full h-full bg-linear-to-b from-cyan-400 via-violet-500 to-blue-500 origin-top"
             />
           </div>
 
@@ -73,42 +74,48 @@ export function EducationSection() {
                   }`}
                 >
                   {/* Timeline Dot Indicator */}
-                  <div className="absolute left-0 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#05070f] border-2 border-cyan-400 flex items-center justify-center z-20 shadow-lg shadow-cyan-500/30">
+                  <div className="absolute left-0 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#040711] border-2 border-cyan-400 flex items-center justify-center z-20 shadow-lg shadow-cyan-500/30">
                     <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
                   </div>
 
                   {/* Timeline Card */}
-                  <div className="w-full md:w-[calc(50%-2rem)] pl-10 md:pl-0">
-                    <PremiumMotionCard delay={index * 0.2}>
+                  <div className="w-full md:w-[calc(50%-2.5rem)] pl-10 md:pl-0">
+                    <PremiumMotionCard delay={index * 0.15}>
                       <div className="p-6 sm:p-8 space-y-4">
-                        <div className="flex items-center gap-2 text-xs font-mono text-cyan-400">
-                          <Calendar className="w-3.5 h-3.5" />
-                          <span>{item.period}</span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5 text-xs font-mono text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
+                            <Calendar className="w-3.5 h-3.5" />
+                            <span>{item.period}</span>
+                          </div>
+                          <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-md border border-emerald-500/20">
+                            {item.status}
+                          </span>
                         </div>
 
-                        <h4 className="text-xl font-bold text-white tracking-tight">
-                          {item.institution}
-                        </h4>
+                        <div>
+                          <h3 className="text-xl font-bold text-white tracking-tight">
+                            {item.institution}
+                          </h3>
+                          <p className="text-sm font-semibold text-violet-300 mt-1">
+                            {item.degree}
+                          </p>
+                        </div>
 
-                        <p className="text-sm font-semibold text-violet-300">
-                          {item.degree}
-                        </p>
-
-                        <div className="flex items-center gap-2 text-xs text-gray-400 bg-white/5 py-1.5 px-3 rounded-lg border border-white/10">
+                        <div className="flex items-center gap-2 text-xs text-slate-300 bg-white/3 py-2 px-3 rounded-xl border border-white/8">
                           <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                           <span className="truncate">{item.location}</span>
                         </div>
 
                         {/* Coursework Pills */}
                         <div>
-                          <span className="text-xs font-mono text-gray-400 block mb-2 flex items-center gap-1">
+                          <span className="text-xs font-mono text-slate-400 mb-2 flex items-center gap-1.5">
                             <BookOpen className="w-3.5 h-3.5 text-cyan-400" /> Core Coursework:
                           </span>
                           <div className="flex flex-wrap gap-1.5">
                             {item.coursework.map((course, idx) => (
                               <span
                                 key={idx}
-                                className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-gray-300"
+                                className="px-2.5 py-1 rounded-lg bg-white/4 border border-white/8 text-[11px] font-mono text-slate-300"
                               >
                                 {course}
                               </span>
@@ -117,9 +124,9 @@ export function EducationSection() {
                         </div>
 
                         {/* Achievements */}
-                        <div className="pt-3 border-t border-white/5 space-y-1.5">
+                        <div className="pt-3 border-t border-white/8 space-y-1.5">
                           {item.achievements.map((ach, idx) => (
-                            <div key={idx} className="flex items-start gap-2 text-xs text-gray-300">
+                            <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
                               <CheckCircle className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
                               <span>{ach}</span>
                             </div>

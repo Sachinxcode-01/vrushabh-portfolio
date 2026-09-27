@@ -1,86 +1,128 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 :root {
-  --background: #05070f;
-  --foreground: #f3f4f6;
-  --card-bg: rgba(15, 23, 42, 0.6);
-  --card-border: rgba(255, 255, 255, 0.1);
+  --background: #040711;
+  --foreground: #f8fafc;
+  --card-bg: rgba(10, 15, 29, 0.75);
+  --card-border: rgba(255, 255, 255, 0.08);
   --accent-cyan: #06b6d4;
   --accent-violet: #8b5cf6;
   --accent-blue: #3b82f6;
+  --accent-emerald: #10b981;
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-sans);
   overflow-x: hidden;
-  selection-background-color: rgba(139, 92, 246, 0.3);
-  selection-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom Scrollbar */
+::selection {
+  background-color: rgba(6, 182, 212, 0.35);
+  color: #ffffff;
+}
+
+/* Custom Ultra-Slim Sleek Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #05070f;
+  background: #040711;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.3);
-  border-radius: 4px;
+  background: rgba(139, 92, 246, 0.25);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.6);
+  background: rgba(6, 182, 212, 0.5);
 }
 
-/* Glassmorphism utility classes */
+/* Glassmorphism modern design system */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 15, 29, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 12px 36px 0 rgba(0, 0, 0, 0.45);
 }
 
 .glass-panel-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .glass-panel-hover:hover {
-  background: rgba(30, 41, 59, 0.65);
-  border-color: rgba(6, 182, 212, 0.3);
-  box-shadow: 0 12px 40px 0 rgba(6, 182, 212, 0.15);
-  transform: translateY(-2px);
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.15), 0 16px 48px -8px rgba(6, 182, 212, 0.2);
+  transform: translateY(-3px);
 }
 
 .glass-button {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  transition: all 0.25s ease;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .glass-button:hover {
-  background: rgba(139, 92, 246, 0.2);
-  border-color: rgba(139, 92, 246, 0.5);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 0 24px rgba(6, 182, 212, 0.25);
+  color: #38bdf8;
 }
 
-/* Glow effects */
+/* Subtle Glowing Accents */
 .glow-cyan {
-  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.35);
 }
 
 .glow-violet {
-  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.35);
+}
+
+/* Contact Input & Form Controls */
+.contact-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.contact-input::placeholder {
+  color: #94a3b8;
+}
+
+.contact-input:focus {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 1px #22d3ee;
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #38bdf8 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 40%, #38bdf8 85%, #818cf8 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -89,32 +131,78 @@ body {
 .hero-name-gradient {
   background: linear-gradient(
     90deg,
-    #38bdf8,
-    #818cf8,
-    #c084fc,
-    #38bdf8
+    #38bdf8 0%,
+    #818cf8 25%,
+    #c084fc 50%,
+    #38bdf8 75%,
+    #818cf8 100%
   );
-  background-size: 300% 100%;
+  background-size: 200% auto;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: name-gradient 5s linear infinite;
-  filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.35));
+  animation: name-shimmer 6s linear infinite;
+  filter: drop-shadow(0 0 28px rgba(56, 189, 248, 0.3));
 }
 
-@keyframes name-gradient {
-  from {
-    background-position: 0% 50%;
-  }
+@keyframes name-shimmer {
   to {
-    background-position: 300% 50%;
+    background-position: 200% center;
+  }
+}
+
+/* Status Pulse Live Indicator */
+@keyframes status-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.4;
+  }
+}
+
+.animate-status-ring {
+  animation: status-pulse 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Subtle Shimmer for High-Priority Buttons */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 60%
+  );
+  transform: rotate(30deg);
+  animation: button-shimmer 6s infinite;
+}
+
+@keyframes button-shimmer {
+  0%, 80% {
+    transform: translateX(-100%) rotate(30deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(30deg);
   }
 }
 
 /* Noise overlay */
 .bg-noise {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
 /* Reduced motion adjustments */

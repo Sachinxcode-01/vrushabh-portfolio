@@ -1,24 +1,24 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+
+const emptySubscribe = () => () => {};
+function checkTouchDevice(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(pointer: coarse)').matches;
+}
 
 export function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
   const [hoverText, setHoverText] = useState('');
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const isTouchDevice = useSyncExternalStore(emptySubscribe, checkTouchDevice, () => false);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    // Detect touch device
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      setIsTouchDevice(true);
-      return;
-    }
+    if (typeof window === 'undefined' || isTouchDevice) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -41,7 +41,7 @@ export function CustomCursor() {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  }, [isTouchDevice]);
 
   if (isTouchDevice || prefersReducedMotion) return null;
 

@@ -1,22 +1,25 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
+
+const emptySubscribe = () => () => {};
+
+function checkWebGL(): boolean {
+  if (typeof window === 'undefined') return true;
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(
+      canvas.getContext('webgl') || canvas.getContext('experimental-webgl')
+    );
+  } catch {
+    return false;
+  }
+}
 
 export function useWebGLSupport(): boolean {
-  const [isSupported, setIsSupported] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    try {
-      const canvas = document.createElement('canvas');
-      const gl =
-        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      setIsSupported(!!gl);
-    } catch {
-      setIsSupported(false);
-    }
-  }, []);
-
-  return isSupported;
+  return useSyncExternalStore(
+    emptySubscribe,
+    checkWebGL,
+    () => true
+  );
 }

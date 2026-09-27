@@ -1,20 +1,17 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { FloatingMesh } from './FloatingMesh';
 import { WebGLFallback } from './WebGLFallback';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useMounted } from '@/hooks/useMounted';
 
 export function TechCanvas() {
   const isWebGLSupported = useWebGLSupport();
   const prefersReducedMotion = useReducedMotion();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   if (!mounted || !isWebGLSupported || prefersReducedMotion) {
     return <WebGLFallback />;

@@ -155,7 +155,7 @@ export function CinematicImageCard({
     <article
       ref={cardRef}
       onClick={onClick}
-      className={`group relative w-full h-[480px] sm:h-[520px] rounded-[24px] overflow-hidden border border-white/10 bg-[#05070f] cursor-pointer shadow-xl transition-colors duration-300 transform-gpu ${className}`}
+      className={`group relative w-full h-120 sm:h-130 rounded-3xl overflow-hidden border border-white/10 bg-[#05070f] cursor-pointer shadow-xl transition-colors duration-300 transform-gpu ${className}`}
       style={{ perspective: '1000px' }}
     >
       {/* Background Image Container */}
@@ -179,10 +179,14 @@ export function CinematicImageCard({
         }}
       />
 
-      {/* Top Badge Category */}
-      <div className="absolute top-5 left-5 z-20">
+      {/* Top Badges Header */}
+      <div className="absolute top-5 left-5 right-5 z-20 flex items-center justify-between pointer-events-none">
         <span className="px-3.5 py-1.5 rounded-full text-[11px] font-mono font-semibold bg-[#05070f]/80 backdrop-blur-md text-cyan-300 border border-cyan-500/30 shadow-lg">
           {categoryOrYear}
+        </span>
+        <span className="px-3 py-1 rounded-full text-[10px] font-mono font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 backdrop-blur-md flex items-center gap-1.5 shadow-lg">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          Featured
         </span>
       </div>
 
@@ -215,7 +219,7 @@ export function CinematicImageCard({
           {/* Light Sweep Effect */}
           <div
             ref={lightSweepRef}
-            className="absolute top-0 bottom-0 width-full w-24 bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none -translate-x-full"
+            className="absolute top-0 bottom-0 width-full w-24 bg-linear-to-r from-transparent via-white/20 to-transparent pointer-events-none -translate-x-full"
           />
 
           <span className="text-xs font-semibold font-mono text-cyan-300 group-hover:text-white transition-colors">

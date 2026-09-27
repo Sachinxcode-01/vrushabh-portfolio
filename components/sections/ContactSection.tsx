@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Mail, MapPin, GraduationCap, CheckCircle2, AlertCircle, Loader2, ArrowUpRight } from 'lucide-react';
+import { Send, Mail, MapPin, GraduationCap, CheckCircle2, AlertCircle, Loader2, ArrowUpRight, MessageSquare } from 'lucide-react';
 import { portfolioData } from '@/data/portfolio';
 import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/components/ui/Icons';
 import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
@@ -60,23 +60,24 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-transparent overflow-hidden">
+    <section id="contact" className="relative py-24 sm:py-32 bg-transparent overflow-hidden">
       {/* Section Ambient Glow */}
       <SectionAmbientLight color="cyan" position="right" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">
-            // 07. GET IN TOUCH
+        <div className="text-center mb-16 sm:mb-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono mb-3">
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>09. GET IN TOUCH</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+            Contact <span className="hero-name-gradient font-extrabold">Vrushabh B</span>
           </h2>
-          <h3 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Contact <span className="text-gradient">Vrushabh B</span>
-          </h3>
-          <p className="text-gray-400 text-sm max-w-xl mx-auto mt-3">
+          <p className="text-slate-400 text-sm sm:text-base max-w-xl mx-auto mt-3">
             Have a project idea, opportunity, technical question, or feedback? Reach out directly via social platforms or send a message.
           </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-violet-600 mx-auto mt-4 rounded-full" />
+          <div className="w-20 h-1 bg-linear-to-r from-cyan-400 to-violet-600 mx-auto mt-5 rounded-full" />
         </div>
 
         {/* Real Animated Contact Platform Cards */}
@@ -90,10 +91,10 @@ export function ContactSection() {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block">Email Contact</span>
-                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block">Direct Email</span>
+                  <h3 className="text-base font-bold text-white tracking-tight truncate">
                     vrushijain1008@gmail.com
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <a
@@ -115,9 +116,9 @@ export function ContactSection() {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-violet-400 uppercase tracking-wider block">Instagram Profile</span>
-                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                  <h3 className="text-base font-bold text-white tracking-tight truncate">
                     @mr_vrushi_arasu_17
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <a
@@ -142,9 +143,9 @@ export function ContactSection() {
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider block">Facebook Profile</span>
-                  <h4 className="text-base font-bold text-white tracking-tight truncate">
+                  <h3 className="text-base font-bold text-white tracking-tight truncate">
                     Vrushabh B on Facebook
-                  </h4>
+                  </h3>
                 </div>
               </div>
               <a
@@ -162,32 +163,32 @@ export function ContactSection() {
 
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
           {/* Contact Details Side */}
           <div className="lg:col-span-5 space-y-6">
             <PremiumMotionCard>
               <div className="p-6 sm:p-8 space-y-6">
-                <h4 className="text-xl font-bold text-white tracking-tight">
-                  Academic Institution & Location
-                </h4>
+                <h3 className="text-xl font-bold text-white tracking-tight">
+                  Academic Campus & Coordinates
+                </h3>
 
-                <div className="space-y-4 pt-2">
-                  <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-300">
+                <div className="space-y-4 pt-1">
+                  <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/3 border border-white/8 text-slate-300">
                     <div className="p-2.5 rounded-lg bg-violet-500/10 text-violet-400">
                       <GraduationCap className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono text-violet-400 block">College</span>
+                      <span className="text-[10px] font-mono text-violet-400 block font-semibold">Institution</span>
                       <span className="text-xs sm:text-sm font-medium">{portfolioData.personal.college}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/5 border border-white/10 text-gray-300">
+                  <div className="flex items-center gap-3.5 p-3.5 rounded-xl bg-white/3 border border-white/8 text-slate-300">
                     <div className="p-2.5 rounded-lg bg-blue-500/10 text-blue-400">
                       <MapPin className="w-5 h-5" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono text-blue-400 block">Location</span>
+                      <span className="text-[10px] font-mono text-blue-400 block font-semibold">Location</span>
                       <span className="text-xs sm:text-sm font-medium">{portfolioData.personal.location}</span>
                     </div>
                   </div>
@@ -200,7 +201,7 @@ export function ContactSection() {
                       href={portfolioData.personal.socials.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 text-xs font-semibold flex items-center justify-center gap-2 transition-all block text-center"
+                      className="w-full py-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 text-xs font-semibold flex items-center justify-center gap-2 transition-all text-center"
                     >
                       <GithubIcon className="w-4 h-4 inline" />
                       <span>GitHub</span>
@@ -211,7 +212,7 @@ export function ContactSection() {
                       href={portfolioData.personal.socials.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-cyan-400 hover:border-cyan-500/40 text-xs font-semibold flex items-center justify-center gap-2 transition-all block text-center"
+                      className="w-full py-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-cyan-400 hover:border-cyan-500/40 text-xs font-semibold flex items-center justify-center gap-2 transition-all text-center"
                     >
                       <LinkedinIcon className="w-4 h-4 inline" />
                       <span>LinkedIn</span>
@@ -226,9 +227,14 @@ export function ContactSection() {
           <div className="lg:col-span-7">
             <PremiumMotionCard glowColor="violet">
               <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-6">
-                <h4 className="text-xl font-bold text-white tracking-tight">
-                  Send a Direct Message
-                </h4>
+                <div>
+                  <h3 className="text-xl font-bold text-white tracking-tight">
+                    Send a Direct Message
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Fill out the form below and I will respond to your inquiry promptly.
+                  </p>
+                </div>
 
                 <input
                   type="text"
@@ -240,9 +246,9 @@ export function ContactSection() {
                   autoComplete="off"
                 />
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="name" className="block text-xs font-mono text-gray-300 mb-2">
+                    <label htmlFor="name" className="block text-xs font-mono text-slate-300 mb-2">
                       Your Name <span className="text-cyan-400">*</span>
                     </label>
                     <input
@@ -252,13 +258,13 @@ export function ContactSection() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Enter your name"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-cyan-400 transition-all focus:bg-white/10"
+                      placeholder="e.g. Alex Smith"
+                      className="contact-input"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-xs font-mono text-gray-300 mb-2">
+                    <label htmlFor="email" className="block text-xs font-mono text-slate-300 mb-2">
                       Email Address <span className="text-cyan-400">*</span>
                     </label>
                     <input
@@ -268,14 +274,14 @@ export function ContactSection() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="name@example.com"
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-cyan-400 transition-all focus:bg-white/10"
+                      placeholder="alex@example.com"
+                      className="contact-input"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-xs font-mono text-gray-300 mb-2">
+                  <label htmlFor="subject" className="block text-xs font-mono text-slate-300 mb-2">
                     Subject
                   </label>
                   <input
@@ -284,13 +290,13 @@ export function ContactSection() {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="Project Collaboration / General Inquiry"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-cyan-400 transition-all focus:bg-white/10"
+                    placeholder="Project Inquiry / Collaboration / Greeting"
+                    className="contact-input"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-xs font-mono text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-xs font-mono text-slate-300 mb-2">
                     Your Message <span className="text-cyan-400">*</span>
                   </label>
                   <textarea
@@ -300,8 +306,8 @@ export function ContactSection() {
                     rows={5}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Write your message here..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-cyan-400 transition-all focus:bg-white/10 resize-none"
+                    placeholder="Hello Vrushabh, I would like to discuss..."
+                    className="contact-input resize-none"
                   />
                 </div>
 
@@ -335,17 +341,17 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-violet-600 to-blue-500 text-white font-semibold text-sm shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:opacity-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="shimmer-btn w-full py-4 rounded-xl bg-linear-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-semibold text-sm shadow-xl shadow-cyan-500/20 hover:shadow-cyan-500/40 hover:opacity-95 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {status === 'loading' ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Sending Message...</span>
+                      <span>Transmitting Message...</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4" />
-                      <span>Send Message</span>
+                      <span>Send Direct Message</span>
                     </>
                   )}
                 </button>
