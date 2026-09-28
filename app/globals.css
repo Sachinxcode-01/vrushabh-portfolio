@@ -199,6 +199,16 @@ body {
   }
 }
 
+@keyframes bar-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  50%, 100% {
+    transform: translateX(200%);
+  }
+}
+
+
 /* Noise overlay */
 .bg-noise {
   background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);

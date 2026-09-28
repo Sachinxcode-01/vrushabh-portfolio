@@ -24,6 +24,7 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
   const progressContainerRef = useRef<HTMLDivElement>(null);
   const percentageRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
+  const statusRef = useRef<HTMLParagraphElement>(null);
 
   const [active, setActive] = useState(true);
 
@@ -32,9 +33,8 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
     document.body.style.overflow = 'hidden';
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const hasLoaded = sessionStorage.getItem('vb_portfolio_loaded');
 
-    if (reduceMotion || hasLoaded === 'true') {
+    if (reduceMotion) {
       document.body.style.overflow = '';
       const raf = requestAnimationFrame(() => {
         setActive(false);
@@ -44,12 +44,11 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
       return () => cancelAnimationFrame(raf);
     }
 
-    const progressObj = { value: 0 };
+    const progressObj = { value: 1 };
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         onComplete: () => {
-          sessionStorage.setItem('vb_portfolio_loaded', 'true');
           document.body.style.overflow = '';
           setActive(false);
           if (onComplete) onComplete();
@@ -59,44 +58,71 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
         },
       });
 
-      // Step 1: Content Fade In
+      // Step 1: Luxurious Content Fade & Gentle Rise
       tl.fromTo(
         logoRef.current,
-        { scale: 0.85, opacity: 0, filter: 'blur(10px)' },
-        { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out' }
+        { scale: 0.9, opacity: 0, filter: 'blur(12px)' },
+        { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }
       ).fromTo(
         progressContainerRef.current,
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' },
-        '-=0.2'
+        { y: 20, opacity: 0, filter: 'blur(6px)' },
+        { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power3.out' },
+        '-=0.3'
       );
 
-      // Step 2: Progress Counter (0% to 100%)
+      // Step 2: Ultra-Smooth Progress Counter (1 to 100)
       tl.to(progressObj, {
         value: 100,
-        duration: 1.2,
+        duration: 1.8,
         ease: 'power2.inOut',
         onUpdate: () => {
-          const val = Math.round(progressObj.value);
+          const val = Math.max(1, Math.min(100, Math.round(progressObj.value)));
           if (percentageRef.current) {
-            percentageRef.current.textContent = `${val}%`;
+            percentageRef.current.textContent = `${val}`;
           }
           if (barRef.current) {
             barRef.current.style.transform = `scaleX(${val / 100})`;
           }
+          if (statusRef.current) {
+            if (val < 35) {
+              statusRef.current.textContent = 'Curating Experience';
+            } else if (val < 75) {
+              statusRef.current.textContent = 'Loading Visuals & Atmosphere';
+            } else if (val < 98) {
+              statusRef.current.textContent = 'Harmonizing Interface';
+            } else {
+              statusRef.current.textContent = 'Welcome';
+            }
+          }
         },
       });
 
-      // Step 3: Smooth Split Exit Curtain
-      tl.to(logoRef.current, {
-        scale: 1.05,
+      // Short Golden Pause at 100% for satisfaction
+      tl.to({}, { duration: 0.2 });
+
+      // Step 3: Cinematic Luxury Reveal Curtain
+      tl.to(contentRef.current, {
+        scale: 1.04,
         opacity: 0,
-        duration: 0.35,
+        filter: 'blur(10px)',
+        duration: 0.45,
         ease: 'power3.inOut',
       })
-        .to(contentRef.current, { opacity: 0, duration: 0.25 }, '-=0.25')
-        .to(topPanelRef.current, { y: '-100%', duration: 0.6, ease: 'expo.inOut' }, '-=0.15')
-        .to(bottomPanelRef.current, { y: '100%', duration: 0.6, ease: 'expo.inOut' }, '-=0.6');
+        .to(
+          topPanelRef.current,
+          { y: '-100%', duration: 0.85, ease: 'expo.inOut' },
+          '-=0.15'
+        )
+        .to(
+          bottomPanelRef.current,
+          { y: '100%', duration: 0.85, ease: 'expo.inOut' },
+          '-=0.85'
+        )
+        .to(
+          containerRef.current,
+          { opacity: 0, duration: 0.35, ease: 'power2.out' },
+          '-=0.35'
+        );
     });
 
     return () => {
@@ -113,18 +139,18 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
       role="status"
       aria-live="polite"
       aria-label="Loading Vrushabh B Portfolio"
-      className="fixed inset-0 z-99999 flex flex-col items-center justify-center pointer-events-auto select-none bg-[#05070f]"
+      className="fixed inset-0 z-99999 flex flex-col items-center justify-center pointer-events-auto select-none bg-[#040711]"
     >
-      {/* Top Split Panel */}
+      {/* Top Split Panel with Soft Gradient Rim Shadow */}
       <div
         ref={topPanelRef}
-        className="absolute top-0 left-0 right-0 h-1/2 bg-[#05070f] z-10 border-b border-white/5"
+        className="absolute top-0 left-0 right-0 h-1/2 bg-[#040711] z-10 border-b border-cyan-500/10 shadow-[0_12px_40px_rgba(0,0,0,0.8)]"
       />
 
-      {/* Bottom Split Panel */}
+      {/* Bottom Split Panel with Soft Gradient Rim Shadow */}
       <div
         ref={bottomPanelRef}
-        className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#05070f] z-10 border-t border-white/5"
+        className="absolute bottom-0 left-0 right-0 h-1/2 bg-[#040711] z-10 border-t border-cyan-500/10 shadow-[0_-12px_40px_rgba(0,0,0,0.8)]"
       />
 
       {/* Background Environment */}
@@ -133,15 +159,17 @@ export function PortfolioLoader({ onComplete }: PortfolioLoaderProps) {
       {/* Center Loader Content */}
       <div
         ref={contentRef}
-        className="relative z-20 flex flex-col items-center justify-center space-y-8"
+        className="relative z-20 flex flex-col items-center justify-center space-y-9"
       >
         <LoaderLogo ref={logoRef} />
         <LoaderProgress
           ref={progressContainerRef}
           percentageRef={percentageRef}
           barRef={barRef}
+          statusRef={statusRef}
         />
       </div>
     </div>
   );
 }
+
