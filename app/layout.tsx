@@ -6,20 +6,19 @@ import { ClientLoaderWrapper } from '@/components/loading/ClientLoaderWrapper';
 import { GlobalBackground } from '@/components/background/GlobalBackground';
 import { ScrollProgress } from '@/components/navigation/ScrollProgress';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
+import { MobileQuickNav } from '@/components/navigation/MobileQuickNav';
 import { portfolioData } from '@/data/portfolio';
 
 const sansFont = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-sans',
   display: 'swap',
-  weight: ['300', '400', '500', '600', '700', '800'],
 });
 
 const monoFont = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   display: 'swap',
-  weight: ['400', '500', '600', '700'],
 });
 
 
@@ -106,6 +105,7 @@ export default function RootLayout({
           <SmoothScroll>{children}</SmoothScroll>
         </ClientLoaderWrapper>
         <ScrollToTop />
+        <MobileQuickNav />
       </body>
     </html>
   );

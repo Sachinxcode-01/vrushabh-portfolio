@@ -17,6 +17,7 @@ import { GithubIcon, LinkedinIcon, InstagramIcon, FacebookIcon } from '@/compone
 import { RotatingRoles } from '@/components/animations/RotatingRoles';
 import { TypingHeading } from '@/components/animations/TypingHeading';
 import { MagneticButton } from '@/components/animations/MagneticButton';
+import { HeroAvatar3D } from '@/components/ui/HeroAvatar3D';
 
 interface HeroSectionProps {
   loadingComplete?: boolean;
@@ -196,77 +197,14 @@ export function HeroSection({ loadingComplete = true }: HeroSectionProps) {
 
           </motion.div>
 
-          {/* Right Column: Modern Tech Avatar Card */}
+          {/* Right Column: Modern 3D Interactive Tech Avatar Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-5 flex justify-center relative"
+            className="lg:col-span-5 flex justify-center relative z-20"
           >
-            <div className="relative w-full max-w-90 sm:max-w-100 aspect-4/5 group">
-              {/* Dynamic Aura Glow */}
-              <div className="absolute -inset-4 bg-linear-to-tr from-cyan-500/30 via-violet-600/25 to-blue-500/30 rounded-3xl blur-3xl opacity-75 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-
-              {/* High-Tech Glass Frame */}
-              <div className="relative w-full h-full rounded-3xl p-2 bg-linear-to-b from-cyan-400/30 via-violet-500/20 to-blue-500/30 shadow-2xl glass-panel">
-                <div className="relative w-full h-full rounded-[20px] overflow-hidden bg-slate-950">
-                  <Image
-                    src="/Vrushabh.jpeg"
-                    alt="Vrushabh B"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 90vw, 400px"
-                    className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Subtle Cinematic Vignette */}
-                  <div className="absolute inset-0 bg-linear-to-t from-[#040711] via-transparent to-transparent opacity-70 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Floating Top Badge: Academic Status */}
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-4 -left-4 sm:-left-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-cyan-500/30 flex items-center gap-2.5 shadow-xl backdrop-blur-xl"
-              >
-                <div className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300">
-                  <GraduationCap className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono text-cyan-400 block font-semibold">Academic Milestone</span>
-                  <span className="text-xs font-bold text-white">1st Year CSE • REC Hulkoti</span>
-                </div>
-              </motion.div>
-
-              {/* Floating Bottom Badge: Code & Innovation */}
-              <motion.div
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-                className="absolute -bottom-4 -right-4 sm:-right-6 z-20 glass-panel py-2 px-3.5 rounded-xl border border-violet-500/30 flex items-center gap-2.5 shadow-xl backdrop-blur-xl"
-              >
-                <div className="p-1.5 rounded-lg bg-violet-500/20 text-violet-300">
-                  <Code2 className="w-4 h-4" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono text-violet-400 block font-semibold">Engineering Focus</span>
-                  <span className="text-xs font-bold text-white">Full-Stack & 3D Web</span>
-                </div>
-              </motion.div>
-
-              {/* Floating Tech Stack Micro-Pills */}
-              <div className="absolute bottom-6 left-6 z-20 flex flex-wrap gap-1.5 pointer-events-none">
-                <span className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono text-cyan-300">
-                  Next.js 15
-                </span>
-                <span className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono text-violet-300">
-                  Three.js
-                </span>
-                <span className="px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-mono text-blue-300">
-                  C++ / DSA
-                </span>
-              </div>
-
-            </div>
+            <HeroAvatar3D />
           </motion.div>
 
         </div>

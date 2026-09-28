@@ -1,8 +1,9 @@
 'use client';
 
-import { Sparkles, Code2, Compass, GraduationCap, Users, Terminal, ArrowUpRight } from 'lucide-react';
+import { Sparkles, Code2, GraduationCap, Users, ArrowUpRight, Compass } from 'lucide-react';
 import { PremiumMotionCard } from '@/components/ui/PremiumMotionCard';
 import { SectionAmbientLight } from '@/components/background/SectionAmbientLight';
+import { DeveloperTerminal } from '@/components/ui/DeveloperTerminal';
 
 export function BentoSection() {
   return (
@@ -91,54 +92,37 @@ export function BentoSection() {
             </div>
           </PremiumMotionCard>
 
-          {/* Card 3: Development Philosophy */}
-          <PremiumMotionCard glowColor="blue">
-            <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between h-full">
-              <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
-                  <Compass className="w-5 h-5" />
-                </div>
-                <h3 className="text-xl font-bold text-white tracking-tight">
-                  Engineering Philosophy
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Writing clean, self-documenting code with modular design patterns, rigorous error handling, and silky 60fps micro-animations.
-                </p>
-              </div>
-
-              <div className="pt-2 border-t border-white/8 flex items-center gap-2 text-[11px] font-mono text-blue-400">
-                <Terminal className="w-3.5 h-3.5 text-blue-400" />
-                <span>{`// MODULAR • SCALABLE • FAST`}</span>
-              </div>
-            </div>
-          </PremiumMotionCard>
+          {/* Card 3: Interactive Developer CLI Terminal */}
+          <div className="md:col-span-2">
+            <DeveloperTerminal />
+          </div>
 
           {/* Card 4: Open to Collaboration */}
-          <PremiumMotionCard glowColor="cyan" className="md:col-span-2">
+          <PremiumMotionCard glowColor="cyan" className="md:col-span-1">
             <div className="p-6 sm:p-8 space-y-4 flex flex-col justify-between h-full">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
                     <Users className="w-5 h-5" />
                   </div>
-                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Open to Hackathons & Teams
+                    Open for Teams
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                  Collaboration, Hackathons & Open Source
+                <h3 className="text-xl font-bold text-white tracking-tight">
+                  Hackathons & Open Source
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
-                  Enthusiastic about teaming up with fellow engineers, designers, and open-source contributors to architect digital products and compete in collegiate hackathons.
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Enthusiastic about teaming up with fellow engineers and designers to build products and compete in hackathons.
                 </p>
               </div>
 
-              <div className="flex items-center gap-3 pt-2">
+              <div className="pt-2">
                 <a
                   href="#contact"
-                  className="px-5 py-2.5 rounded-xl bg-linear-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-semibold text-xs shadow-lg shadow-cyan-500/20 hover:scale-105 transition-all flex items-center gap-1.5"
+                  className="w-full py-2.5 rounded-xl bg-linear-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-semibold text-xs shadow-lg shadow-cyan-500/20 hover:scale-102 transition-all flex items-center justify-center gap-1.5"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Start a Conversation</span>

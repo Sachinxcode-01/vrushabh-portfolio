@@ -57,7 +57,7 @@ export function EducationSection() {
           <div className="absolute left-6 sm:left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/10 -translate-x-1/2">
             <div
               ref={lineRef}
-              className="w-full h-full bg-linear-to-b from-cyan-400 via-violet-500 to-blue-500 origin-top"
+              className="w-full h-full bg-linear-to-b from-cyan-400 via-violet-500 to-blue-500 shadow-[0_0_12px_#22d3ee] origin-top"
             />
           </div>
 
@@ -74,8 +74,9 @@ export function EducationSection() {
                   }`}
                 >
                   {/* Timeline Dot Indicator */}
-                  <div className="absolute left-0 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#040711] border-2 border-cyan-400 flex items-center justify-center z-20 shadow-lg shadow-cyan-500/30">
-                    <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+                  <div className="absolute left-6 sm:left-8 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#040711] border-2 border-cyan-400 flex items-center justify-center z-20 shadow-lg shadow-cyan-500/40">
+                    <div className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 absolute animate-ping opacity-75" />
                   </div>
 
                   {/* Timeline Card */}
